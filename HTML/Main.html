@@ -1,92 +1,46 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Eventos de la Comunidad</title>
+  </head>
+  <body>
+    <!-- =================== BLOQUE DE FILTROS =================== -->
+    <h2>Filtros</h2>
+    <div id="filtros-eventos">
+      <!-- Bloque Categorías -->
+      <div id="bloque-categorias">
+        <span id="label-categorias">Categoría:</span>
+        <select id="categorias"></select>
+      </div>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="MiComunidadCR sera el punto de encuentro para la participación ciudadana en actividades municipales.">
-    <meta name="keywords" content="MiComunidadCR, Costa Rica, Aire libre, actividades municipales, convivencia">
-    <meta name="author" content="MiComunidadCR">
+      <br /><br />
 
-    <!-- CSS externo principal del sitio -->
-    <link rel="stylesheet" href="">
+      <!-- Bloque Provincias -->
+      <div id="bloque-provincias">
+        <span id="label-provincias">Provincia:</span>
+        <select id="provincias"></select>
+      </div>
 
-    <!-- Icono del sitio -->
-    <link rel="icon" href="img/cambiar.png" type="image/png">
-    <title> MiComunidadCR | Eventos</title>
-</head>
+      <br /><br />
 
-<body>
-    <header>
-        <img src="img/logoMicomunidad.jpeg" alt="Logo de MiComunidadCR" width="32">
-        <p class="logo"><strong>MiComunidadCR</strong></p>
-        <label> <a href="cuenta.html">Cuenta</a></label>
-    </header>
-    <main>
-        <Section class="eventos">
-            <div class="evento">
-                <h2>Eventos Destacados </h2>
-                <div class="eventos-lista">
-                    <Article>
-                        <img src="img/evento1.jpg" alt="Evento 1" width="100">
-                        <h3>Actividad 1</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur adipiscing, elit ligula</p>
-                        <p><strong>Fecha:</strong> 15 de julio de 2026</p>
-                        <p><strong>Ubicación:</strong> Parque Central </p>
-                        <a class="btn-card" href="register.html">
-                            Registrarse
-                        </a>
-                    </Article>
-                    <Article>
-                        <img src="img/evento2.jpg" alt="Evento 2" width="100">
-                        <h3>Actividad 2</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur adipiscing, elit ligula</p>
-                        <p><strong>Fecha:</strong> 20 de julio de 2026</p>
-                        <p><strong>Ubicación:</strong> Plaza Mayor </p>
-                        <a class="btn-card" href="register.html">
-                            Registrarse
-                        </a>
-                    </Article>
-                    <Article>
-                        <img src="img/evento3.jpg" alt="Evento 3" width="100">
-                        <h3>Actividad 3</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur adipiscing, elit ligula</p>
-                        <p><strong>Fecha:</strong> 25 de julio de 2026</p>
-                        <p><strong>Ubicación:</strong> Centro Cultural </p>
-                        <a class="btn-card" href="register.html">
-                            Registrarse
-                        </a>
-                    </Article>
-                </div>
-            </div>
-        </Section>
+      <!-- Bloque Municipalidades -->
+      <div id="bloque-municipalidades">
+        <span id="label-municipalidades">Municipalidad:</span>
+        <select id="municipalidades"></select>
+      </div>
+    </div>
 
-        <section>
-            <h2>Eventos de la Comunidad</h2>
-            <select class="mi-desplegable-moderno">
-                <option disabled selected>Municipalidad</option>
-                <option>San José</option>
-            </select>
+    <hr />
 
-            <select class="mi-desplegable-moderno">
-                <option disabled selected>Categoría</option>
-                <option>Ventas</option>
-                <option>Religioso</option>
-                <option>Actividades</option>
-                <option>Pet Friendly</option>
-                <option>Deportivo</option>
-            </select>
-        </section>
-    </main>
-    <br>
-    <footer>
-        <a> Contacto</a>
-        <a> Ayuda</a>
-        <a> Sobre Nosotros</a>
-        <hr>
-        <p>&copy; 2026 MiComunidadCR. Todos los derechos reservados.</p>
-    </footer>
-</body>
+    <!-- =================== BLOQUE DE EVENTOS =================== -->
+    <h2>Eventos Destacados</h2>
+    <div id="eventos-destacados"></div>
 
+    <h2>Más Eventos de la Comunidad</h2>
+    <div id="eventos-comunidad"></div>
+
+    <!-- Importar el script externo -->
+    <script src="../JS/scriptMain.js"></script>
+  </body>
 </html>

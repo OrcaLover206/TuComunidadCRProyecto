@@ -1,0 +1,109 @@
+{
+  "eventos": [
+    {
+      "nombre": "Feria de Artesanías",
+      "descripcion": "Exposición y venta de productos locales elaborados por artesanos de la comunidad.",
+      "fecha_inicio": "2026-07-15",
+      "fecha_fin": "2026-07-16",
+      "ubicacion": "Parque Central",
+      "categorias": ["Ventas", "Actividades"],
+      "actividades": [
+        "Exposición de artesanías",
+        "Venta de productos",
+        "Talleres de manualidades"
+      ],
+      "municipalidad": "San José",
+      "provincia": "San José"
+    },
+    {
+      "nombre": "Concierto Solidario",
+      "descripcion": "Evento musical para recaudar fondos destinados a programas sociales.",
+      "fecha_inicio": "2026-07-20",
+      "fecha_fin": "2026-07-20",
+      "ubicacion": "Plaza Mayor",
+      "categorias": ["Religioso", "Actividades"],
+      "actividades": [
+        "Presentación de bandas locales",
+        "Recolección de donaciones",
+        "Venta de comidas"
+      ],
+      "municipalidad": "Alajuela",
+      "provincia": "Alajuela"
+    },
+    {
+      "nombre": "Carrera Pet Friendly",
+      "descripcion": "Competencia deportiva en la que los participantes corren junto a sus mascotas.",
+      "fecha_inicio": "2026-07-25",
+      "fecha_fin": "2026-07-25",
+      "ubicacion": "Centro Deportivo",
+      "categorias": ["Deportivo", "Pet Friendly"],
+      "actividades": [
+        "Carrera 5K",
+        "Zona de hidratación para mascotas",
+        "Premiación"
+      ],
+      "municipalidad": "Cartago",
+      "provincia": "Cartago"
+    },
+    {
+      "nombre": "Festival Gastronómico",
+      "descripcion": "Degustación de platillos típicos y venta de productos locales.",
+      "fecha_inicio": "2026-08-01",
+      "fecha_fin": "2026-08-02",
+      "ubicacion": "Centro Cultural",
+      "categorias": ["Ventas", "Actividades"],
+      "actividades": [
+        "Degustación de platillos",
+        "Clases de cocina",
+        "Venta de productos locales"
+      ],
+      "municipalidad": "Heredia",
+      "provincia": "Heredia"
+    },
+    {
+      "nombre": "Feria de Mascotas",
+      "descripcion": "Evento dedicado al cuidado y adopción de mascotas.",
+      "fecha_inicio": "2026-08-10",
+      "fecha_fin": "2026-08-10",
+      "ubicacion": "Parque de la Paz",
+      "categorias": ["Pet Friendly", "Actividades"],
+      "actividades": [
+        "Adopción de mascotas",
+        "Charlas veterinarias",
+        "Exposición de productos para mascotas"
+      ],
+      "municipalidad": "Desamparados",
+      "provincia": "San José"
+    },
+    {
+      "nombre": "Festival Deportivo Juvenil",
+      "descripcion": "Competencias deportivas para jóvenes de la comunidad.",
+      "fecha_inicio": "2026-08-15",
+      "fecha_fin": "2026-08-16",
+      "ubicacion": "Estadio Municipal",
+      "categorias": ["Deportivo", "Actividades"],
+      "actividades": [
+        "Torneos de fútbol",
+        "Competencias de atletismo",
+        "Clínicas deportivas"
+      ],
+      "municipalidad": "Alajuela",
+      "provincia": "Alajuela"
+    },
+    {
+      "nombre": "Encuentro Cultural Religioso",
+      "descripcion": "Celebración con actividades culturales y religiosas.",
+      "fecha_inicio": "2026-08-20",
+      "fecha_fin": "2026-08-21",
+      "ubicacion": "Basílica de los Ángeles",
+      "categorias": ["Religioso", "Cultura"],
+      "actividades": [
+        "Procesión",
+        "Presentaciones artísticas",
+        "Feria de comidas típicas"
+      ],
+      "municipalidad": "Cartago",
+      "provincia": "Cartago"
+    }
+  ]
+}
