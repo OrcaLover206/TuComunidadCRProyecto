@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TuComunidadCR | Log In</title>
+  <link rel="stylesheet" href="../Css/LogInCss.css">
+</head>
+<body>
+  <main>
+    <!-- Columna izquierda: formulario -->
+    <section id="login-form-section">
+      <div id="logo-container">
+        <img id="logo-img" src="../Images/logoWhite.png" alt="Logo TuComunidadCR" width="50">
+        <h2 id="logo-text">TuComunidadCR</h2>
+      </div>
+      <h1 id="login-title">Iniciar tu cuenta</h1>
+      <form id="login-form" action="Main.html" method="post">
+        <div class="form-group">
+          <label for="username-input">Usuario</label>
+          <input id="username-input" type="text" name="username" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="password-input">Contraseña</label>
+          <input id="password-input" type="password" name="password" required>
+        </div>
+        
+        <div id="buttons-container">
+          <button id="login-btn" type="submit">Iniciar</button>
+          <button id="register-btn" type="button" onclick="location.href='Registro.html'">Crear Cuenta</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Columna derecha: imagen -->
+    <section id="login-image-section"></section>
+  </main>
+</body>
+</html>

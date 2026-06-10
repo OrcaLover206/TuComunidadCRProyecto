@@ -1,0 +1,240 @@
+/* ===== RESETEO GLOBAL ===== */
+/* Elimina márgenes y padding por defecto, y aplica box-sizing para mejor control del tamaño */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ===== FONDO DE LA PÁGINA ===== */
+/* Configura la imagen de fondo con un degradado verde oscuro a transparente */
+html {
+    height: 100%;
+    background-image: 
+        linear-gradient(135deg, rgba(27, 74, 52, 0.6) 0%, rgba(27, 74, 52, 0.3) 50%, rgba(0, 0, 0, 0) 100%),
+        url("../Images/LogInBackground.jpg");
+    background-size: cover, 115% 125%;
+    background-attachment: fixed;
+    background-position: center, calc(50% + 40px) center;
+    background-repeat: no-repeat;
+}
+
+/* ===== CUERPO DE LA PÁGINA ===== */
+/* Usa flexbox para centrar el contenido verticalmente */
+body{
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+/* ===== CONTENEDOR PRINCIPAL ===== */
+/* Ocupa todo el ancho y alto, usa flexbox */
+main{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+/* ===== SECCIÓN DEL FORMULARIO ===== */
+/* Contiene el logo, título y formulario */
+#login-form-section{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 4rem;
+    gap: 2rem;
+    max-width: 400px;
+    width: 100%;
+}
+
+/* ===== CONTENEDOR DEL LOGO ===== */
+/* Agrupa el logo y el nombre */
+#logo-container{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 1rem;
+}
+
+/* ===== LOGO IMAGEN ===== */
+/* Estilo de la imagen del logo */
+#logo-img{
+    width: 60px;
+    height: auto;
+}
+
+/* ===== TEXTO DEL LOGO ===== */
+/* Nombre de la marca al lado del logo */
+#logo-text{
+    color: white;
+    font-size: 1.3em;
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+}
+
+/* ===== TÍTULO PRINCIPAL ===== */
+/* "Iniciar tu cuenta" */
+#login-title{
+    color: white;
+    font-size: 2.5em;
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+    margin-bottom: 1rem;
+}
+
+/* ===== FORMULARIO ===== */
+/* Contenedor del formulario */
+#login-form{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* ===== GRUPOS DE FORMULARIO ===== */
+/* Agrupa label e input */
+.form-group{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+/* ===== LABELS ===== */
+/* Estilos de las etiquetas */
+label{
+    color: white;
+    font-size: 1em;
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+}
+
+/* ===== INPUTS ===== */
+/* Campos de entrada con línea inferior solamente */
+input{
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid white;
+    padding: 0.8rem 0;
+    color: white;
+    font-size: 1em;
+    font-family: Arial, sans-serif;
+    outline: none;
+}
+
+/* Estilos cuando el input tiene focus */
+input:focus{
+    border-bottom-color: #e0e0e0;
+}
+
+/* Color del placeholder */
+input::placeholder{
+    color: rgba(255, 255, 255, 0.6);
+}
+
+/* ===== CONTENEDOR DE BOTONES ===== */
+/* Agrupa los botones horizontalmente */
+#buttons-container{
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+/* ===== ESTILOS GENERALES DE BOTONES ===== */
+/* Estilos base para todos los botones */
+button{
+    padding: 12px 30px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1em;
+    font-family: Arial, sans-serif;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* ===== BOTÓN "INICIAR" ===== */
+/* Fondo blanco, texto oscuro */
+#login-btn{
+    background-color: white;
+    color: #333;
+    flex: 1;
+}
+
+/* Efecto hover del botón Iniciar */
+#login-btn:hover{
+    background-color: #f0f0f0;
+    transform: translateY(-2px);
+}
+
+/* ===== BOTÓN "CREAR CUENTA" ===== */
+/* Fondo transparente, borde blanco, texto blanco */
+#register-btn{
+    background-color: transparent;
+    color: white;
+    border: 2px solid white;
+    flex: 1;
+}
+
+/* Efecto hover del botón Crear Cuenta */
+#register-btn:hover{
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+/* ===== SECCIÓN DE IMAGEN ===== */
+/* Espacio para la imagen de fondo */
+#login-image-section{
+    flex: 1;
+    height: 100%;
+}
+
+/* ===== DISEÑO RESPONSIVO (móviles) ===== */
+/* Ajustes para pantallas menores a 768px */
+@media(max-width: 768px){
+    /* Centra el formulario en móvil */
+    #login-form-section{
+        padding: 2rem 1.5rem;
+        max-width: 100%;
+        gap: 1.5rem;
+    }
+    
+    /* Reduce tamaño del título en móvil */
+    #login-title{
+        font-size: 1.8em;
+        margin-bottom: 0.5rem;
+    }
+    
+    /* Reduce tamaño del logo en móvil */
+    #logo-img{
+        width: 50px;
+    }
+    
+    #logo-text{
+        font-size: 1.1em;
+    }
+    
+    /* Reduce el gap entre elementos del formulario */
+    .form-group{
+        gap: 0.3rem;
+    }
+    
+    label{
+        font-size: 0.95em;
+    }
+    
+    input{
+        font-size: 0.95em;
+        padding: 0.6rem 0;
+    }
+    
+    /* Botones en columna en móvil */
+    #buttons-container{
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    button{
+        padding: 12px 20px;
+    }
+}
