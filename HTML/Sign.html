@@ -10,6 +10,7 @@
     <main>
       <!-- Columna izquierda: formulario -->
       <section id="login-form-section">
+        <!-- Logo -->
         <div id="logo-container">
           <img
             id="logo-img"
@@ -18,16 +19,51 @@
             width="50"
           />
           <h2 id="logo-text">TuComunidadCR</h2>
+          <!-- Título -->
         </div>
+
         <h1 id="login-title">
           Crear tu <span id="title-accent"> Cuenta</span>
         </h1>
+
+        <!-- Formulario de registro -->
         <form id="login-form" action="Main.html" method="post">
+          <!-- Nombre -->
+          <div class="form-group">
+            <label for="name-input">Nombre</label>
+            <input id="name-input" type="text" name="nombre" required />
+          </div>
+
+          <!-- Teléfono -->
+          <div class="form-group">
+            <label for="phone-input">Teléfono</label>
+            <input id="phone-input" type="tel" name="telefono" required />
+          </div>
+
+          <!-- Correo -->
+          <div class="form-group">
+            <label for="email-input">Correo</label>
+            <input id="email-input" type="email" name="correo" required />
+          </div>
+
+          <!-- Fecha de nacimiento -->
+          <div class="form-group">
+            <label for="birthdate-input">Fecha de nacimiento</label>
+            <input
+              id="birthdate-input"
+              type="date"
+              name="fecha_nacimiento"
+              required
+            />
+          </div>
+
+          <!-- Usuario -->
           <div class="form-group">
             <label for="username-input">Usuario</label>
             <input id="username-input" type="text" name="username" required />
           </div>
 
+          <!-- Contraseña -->
           <div class="form-group">
             <label for="password-input">Contraseña</label>
             <input
@@ -38,8 +74,9 @@
             />
           </div>
 
+          <!-- Botones -->
           <div id="buttons-container">
-            <button id="login-btn" type="submit">Iniciar</button>
+            <button id="login-btn" type="submit">Registrarse</button>
             <button
               id="register-btn"
               type="button"

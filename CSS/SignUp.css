@@ -27,6 +27,7 @@ body {
   height: 100%;
   display: flex;
   align-items: center;
+  overflow-x: hidden; /*evita scroll horizontal */
 }
 
 /* ===== CONTENEDOR PRINCIPAL ===== */
@@ -40,24 +41,35 @@ main {
 
 /* ===== SECCIÓN DEL FORMULARIO ===== */
 #login-form-section {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  max-width: 850px; /* ancho fijo hacia la derecha */
+  width: 100%;
+  background: linear-gradient(
+    to left,
+    rgba(0, 0, 0, 0.9) 0%,
+    /* negro sólido en el borde derecho */ rgba(0, 0, 0, 0.6) 40%,
+    /* degradado intermedio */ rgba(0, 0, 0, 0) 100%
+      /* transparente hacia la izquierda */
+  );
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   padding: 5rem;
-  gap: 2.5rem;
-  max-width: 600px;
-  width: 100%;
-  margin-left: 0;
-  margin-right: 8rem; /* CAMBIADO: separa del borde derecho */
+  gap: 2rem;
+  margin-right: 0;
+  overflow: hidden;
 }
 
-/* ===== CONTENEDOR DEL LOGO ===== */
+/* ===== CONTENEDOR DEL LOGO Y TÍTULO ===== */
 #logo-container {
   display: flex;
-  align-items: flex-end;
-  gap: 25px;
-  margin-bottom: 0;
-  margin-top: -1.5rem; /* AGREGADO: sube el logo */
+  flex-direction: row; /* logo arriba, título debajo */
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1rem;
 }
 
 /* ===== LOGO IMAGEN ===== */
@@ -90,9 +102,12 @@ main {
 
 /* ===== FORMULARIO ===== */
 #login-form {
+  flex: 1;
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  overflow-y: auto; /* scroll vertical dentro del formulario */
+  padding-right: 1rem;
 }
 
 /* ===== GRUPOS DE FORMULARIO ===== */
@@ -117,6 +132,7 @@ label {
 
 /* ===== INPUTS ===== */
 input {
+  width: 100%;
   background-color: transparent;
   border: none;
   border-bottom: 2px solid white;
@@ -125,7 +141,6 @@ input {
   font-size: 1em;
   font-family: Arial, sans-serif;
   outline: none;
-  width: 120%;
 }
 
 input:focus {
@@ -141,6 +156,25 @@ input::placeholder {
   display: flex;
   gap: 1.2rem;
   margin-top: 0;
+}
+
+/* ===== Scrollbar en navegadores WebKit (Chrome, Edge, Safari) ===== */
+#login-form::-webkit-scrollbar {
+  width: 10px; /* ancho de la barra */
+}
+
+#login-form::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1); /* fondo del track */
+  border-radius: 5px;
+}
+
+#login-form::-webkit-scrollbar-thumb {
+  background: #4caf50; /* color de la barra */
+  border-radius: 5px;
+}
+
+#login-form::-webkit-scrollbar-thumb:hover {
+  background: #3cf58c; /* color al pasar el mouse */
 }
 
 /* ===== ESTILOS GENERALES DE BOTONES ===== */
