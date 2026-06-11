@@ -15,10 +15,13 @@ async function cargarUsuarios() {
         // Espera a que el archivo se transforme en un formato que JavaScript entienda 
         const datosUsuarios = await respuesta.json();
         
-        // Guardamos los datos 
-        usuariosCargados = datosUsuarios;
+        // Lee los usuarios nuevos que se registraron
+        const datosLocalStorage = JSON.parse(localStorage.getItem('usuariosRegistrados')) || [];
         
-        console.log('Usuarios cargados con éxito desde el JSON:', usuariosCargados);
+        // Unifica ambas fuentes de datos para el Login
+        usuariosCargados = [...datosUsuarios.usuarios, ...datosLocalStorage];
+        
+        console.log('Usuarios cargados con éxito:', usuariosCargados);
 
     } catch (error) {
         // Si algo falla, se muestra aquí
@@ -74,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Buscar el usuario en localStorage
-        const listaUsuarios = usuariosCargados.usuarios;
+        const listaUsuarios = usuariosCargados;
 
         // Intentar encontrar un usuario que coincida con el nombre de usuario digitado
         const usuarioEncontrado = listaUsuarios.find(user => user.username.toLowerCase() === username.toLowerCase());
@@ -94,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Si pasa todos los filtros, inicia sesión con éxito
-        mostrarMensajeGlobal('Inicio de sesión exitoso Redirigiendo...');
+        mostrarMensajeGlobal('Inicio de sesión exitoso. Redirigiendo...', 'exito');
         
         // Guardar en localStorage cuál es el usuario que está "activo" actualmente en la sesión 
         localStorage.setItem('usuarioActivo', JSON.stringify(usuarioEncontrado));
@@ -106,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => {
 
             window.location.href = 'Main.html'; 
-        }, 1500);
+        }, 2700);
 
     });
 });
@@ -133,4 +136,3 @@ function mostrarMensajeGlobal(mensaje, tipo) {
         globalMessage.className = 'global-message exito-box';
     }
 }
-
