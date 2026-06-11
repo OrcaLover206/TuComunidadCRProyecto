@@ -13,30 +13,36 @@ function crearEventoDiv(evento) {
   const div = document.createElement("div");
   div.className = "evento";
 
-  // Nombre
+  // Nombre del evento
   const nombre = document.createElement("h3");
   nombre.textContent = evento.nombre;
   div.appendChild(nombre);
 
-  // Descripción
+  // Descripción del evento
   const descripcion = document.createElement("p");
   descripcion.textContent = evento.descripcion;
   div.appendChild(descripcion);
 
-  // Fechas
+  // Fechas del evento
   const fechas = document.createElement("p");
   fechas.textContent = `Inicio: ${evento.fecha_inicio} | Fin: ${evento.fecha_fin}`;
   div.appendChild(fechas);
 
-  // Ubicación
+  // Ubicación del evento
   const ubicacion = document.createElement("p");
   ubicacion.textContent = `Ubicación: ${evento.ubicacion}`;
   div.appendChild(ubicacion);
 
-  // Categorías
+  // Categorías del evento
   const categorias = document.createElement("p");
   categorias.textContent = `Categorías: ${evento.categorias.join(", ")}`;
   div.appendChild(categorias);
+
+  // Botón con id único basado en el nombre del evento
+  const boton = document.createElement("button");
+  boton.id = `btn-${evento.nombre.replace(/\s+/g, "-").toLowerCase()}`;
+  boton.textContent = "Ver más";
+  div.appendChild(boton);
 
   return div;
 }
@@ -48,7 +54,7 @@ async function inicializar() {
   const provinciasSelect = document.getElementById("provincias");
   const municipalidadesSelect = document.getElementById("municipalidades");
 
-  // Cargar categorías
+  // Cargar categorías desde JSON
   const categoriasData = await cargarJSON("../DATA/ComboBox/categorias.json");
   categoriasData.categorias.forEach((cat) => {
     const option = document.createElement("option");
@@ -57,7 +63,7 @@ async function inicializar() {
     categoriasSelect.appendChild(option);
   });
 
-  // Cargar provincias
+  // Cargar provincias desde JSON
   const provinciasData = await cargarJSON("../DATA/ComboBox/provincias.json");
   provinciasData.provincias.forEach((prov) => {
     const option = document.createElement("option");
@@ -66,13 +72,16 @@ async function inicializar() {
     provinciasSelect.appendChild(option);
   });
 
-  // Cargar municipalidades
+  // Cargar municipalidades desde JSON
   const municipalidadesData = await cargarJSON(
     "../DATA/ComboBox/municipalidades.json",
   );
+
+  // Evento: cuando cambia la provincia, actualizar municipalidades
   provinciasSelect.addEventListener("change", () => {
-    municipalidadesSelect.innerHTML = "";
+    municipalidadesSelect.innerHTML = ""; // limpiar opciones previas
     const seleccion = provinciasSelect.value;
+
     municipalidadesData[seleccion].forEach((muni) => {
       const option = document.createElement("option");
       option.value = muni;
@@ -81,7 +90,7 @@ async function inicializar() {
     });
   });
 
-  // Inicializar con la primera provincia
+  // Inicializar con la primera provincia seleccionada
   provinciasSelect.value = provinciasData.provincias[0];
   provinciasSelect.dispatchEvent(new Event("change"));
 
@@ -101,5 +110,5 @@ async function inicializar() {
   });
 }
 
-// Ejecutar
+// Ejecutar al cargar la página
 inicializar();
