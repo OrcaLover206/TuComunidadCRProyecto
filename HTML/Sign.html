@@ -32,18 +32,21 @@
           <div class="form-group">
             <label for="name-input">Nombre</label>
             <input id="name-input" type="text" name="nombre" required />
+            <span id="SignNombreError" class="error-message"></span>
           </div>
 
           <!-- Teléfono -->
           <div class="form-group">
             <label for="phone-input">Teléfono</label>
             <input id="phone-input" type="tel" name="telefono" required />
+            <span id="SignTelefonoError" class="error-message"></span>
           </div>
 
           <!-- Correo -->
           <div class="form-group">
             <label for="email-input">Correo</label>
             <input id="email-input" type="email" name="correo" required />
+            <span id="SignEmailError" class="error-message"></span>
           </div>
 
           <!-- Fecha de nacimiento -->
@@ -55,12 +58,14 @@
               name="fecha_nacimiento"
               required
             />
+            <span id="SignFechaError" class="error-message"></span>
           </div>
 
           <!-- Usuario -->
           <div class="form-group">
             <label for="username-input">Usuario</label>
             <input id="username-input" type="text" name="username" required />
+            <span id="SignUserError" class="error-message"></span>
           </div>
 
           <!-- Contraseña -->
@@ -72,7 +77,11 @@
               name="password"
               required
             />
+            <span id="SignPasswordError" class="error-message"></span>
           </div>
+
+          <!-- Mensaje feedback general -->
+          <div id="globalMessage" class="global-message"></div>
 
           <!-- Botones -->
           <div id="buttons-container">
@@ -88,5 +97,6 @@
         </form>
       </section>
     </main>
+    <Script src="../JS/scriptSign.js"></Script>
   </body>
 </html>
