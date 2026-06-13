@@ -5,6 +5,27 @@
     <title>Eventos de la Comunidad</title>
   </head>
   <body>
+    <nav>
+      <ul>
+        <img
+          src="../Images/logoWhite.png"
+          alt="Logo TuComunidadCR"
+          width="30"
+        />
+        <p>TuComunidadCR</p>
+        <a href="#" onclick="toggleMenu()">Cuenta</a>
+        <ul id="submenu" style="display: none">
+          <li><a href="perfil.html">Perfil</a></li>
+          <li><a href="Eventos.html">Tus Eventos</a></li>
+          <li><a href="#" onclick="confirmLogout()">Salir</a></li>
+        </ul>
+      </ul>
+    </nav>
+
+    <!-- =================== BLOQUE DE EVENTOS Destacados =================== -->
+    <h2>Eventos Destacados</h2>
+    <div id="eventos-destacados"></div>
+
     <!-- =================== BLOQUE DE FILTROS =================== -->
     <h2>Filtros</h2>
     <div id="filtros-eventos">
@@ -33,14 +54,22 @@
 
     <hr />
 
-    <!-- =================== BLOQUE DE EVENTOS =================== -->
-    <h2>Eventos Destacados</h2>
-    <div id="eventos-destacados"></div>
-
+    <!-- =================== BLOQUE DE EVENTOS DE LA COMUNIDAD =================== -->
     <h2>Más Eventos de la Comunidad</h2>
     <div id="eventos-comunidad"></div>
 
     <!-- Importar el script externo -->
     <script src="../JS/scriptMain.js"></script>
   </body>
+
+  <footer>
+    <img src="../Images/logoBlack.png" alt="Logo TuComunidadCR" width="30" />
+    <ul>
+      <li>About us</li>
+      <li>Ayuda</li>
+      <li>Contacto</li>
+    </ul>
+    <hr />
+    <p>&copy; 2024 Eventos de la Comunidad. Todos los derechos reservados.</p>
+  </footer>
 </html>

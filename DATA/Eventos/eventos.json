@@ -13,7 +13,8 @@
         "Talleres de manualidades"
       ],
       "municipalidad": "San José",
-      "provincia": "San José"
+      "provincia": "San José",
+      "disponibles": 50
     },
     {
       "nombre": "Concierto Solidario",
@@ -28,7 +29,8 @@
         "Venta de comidas"
       ],
       "municipalidad": "Alajuela",
-      "provincia": "Alajuela"
+      "provincia": "Alajuela",
+      "disponibles": 100
     },
     {
       "nombre": "Carrera Pet Friendly",
@@ -43,7 +45,8 @@
         "Premiación"
       ],
       "municipalidad": "Cartago",
-      "provincia": "Cartago"
+      "provincia": "Cartago",
+      "disponibles": 80
     },
     {
       "nombre": "Festival Gastronómico",
@@ -58,7 +61,8 @@
         "Venta de productos locales"
       ],
       "municipalidad": "Heredia",
-      "provincia": "Heredia"
+      "provincia": "Heredia",
+      "disponibles": 60
     },
     {
       "nombre": "Feria de Mascotas",
@@ -73,7 +77,8 @@
         "Exposición de productos para mascotas"
       ],
       "municipalidad": "Desamparados",
-      "provincia": "San José"
+      "provincia": "San José",
+      "disponibles": 40
     },
     {
       "nombre": "Festival Deportivo Juvenil",
@@ -88,7 +93,8 @@
         "Clínicas deportivas"
       ],
       "municipalidad": "Alajuela",
-      "provincia": "Alajuela"
+      "provincia": "Alajuela",
+      "disponibles": 120
     },
     {
       "nombre": "Encuentro Cultural Religioso",
@@ -103,7 +109,8 @@
         "Feria de comidas típicas"
       ],
       "municipalidad": "Cartago",
-      "provincia": "Cartago"
+      "provincia": "Cartago",
+      "disponibles": 70
     }
   ]
 }
