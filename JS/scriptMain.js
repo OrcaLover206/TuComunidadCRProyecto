@@ -210,8 +210,14 @@ async function inicializar() {
 // =================== MENÚ Y LOGOUT ===================
 // Alterna la visibilidad del submenú de "Cuenta".
 function toggleMenu() {
+  const menuWithoutProfile = document.getElementById("menuSinCuenta")
+  const usuarioActivo = JSON.parse(localStorage.getItem('usuarioActivo'));
+  if (!usuarioActivo){
+    menuWithoutProfile.style.display = menuWithoutProfile.style.display === "none" ? "block" : "none"
+  }else{
   const submenu = document.getElementById("submenu");
   submenu.style.display = submenu.style.display === "none" ? "block" : "none";
+  }
 }
 
 // Muestra confirmación al cerrar sesión y redirige si se acepta.
@@ -220,7 +226,7 @@ function confirmLogout() {
   if (seguro) {
     localStorage.removeItem('usuarioActivo');
     alert("Sesión cerrada correctamente");
-    window.location.href = "Login.html";
+    window.location.href = "Index.html";
   } else {
     alert("Acción cancelada");
   }

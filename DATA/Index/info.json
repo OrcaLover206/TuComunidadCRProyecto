@@ -1,0 +1,20 @@
+{
+"parrafos": [
+    {
+    "id": 1,
+    "texto": "TuComunidadCR busca facilitar que puedas conectar de una manera más accesible a los eventos que nuestras municipalidades tengan preparadas para tu comunidad o las comunidades vecinas."
+    },
+    {
+    "id": 2,
+    "texto": "Este sitio web está pensado para aquellas personas o familias que deseen pasar un buen rato, con tal de despejar su mente de la pesada vida cotidiana. O para aquellos que deseen convivir con los demás miembros de la comunidad."
+    },
+    {
+    "id": 3,
+    "texto": "Este sistema te permitirá registrarte en aquellos eventos que te parezcan más adecuados para ti. Si aún no conoces qué eventos están disponibles, tendrás una barra de búsqueda junto al filtrado de información, con tal de registrarte al que más se acomode al lugar en donde estés."
+    },
+    {
+    "id": 4,
+    "texto": "Para comenzar, dale click al botón de Iniciar Sesión. Si no tienes una cuenta, desde ahí podrás ir a crearla. También puedes clickear en Eventos para ver los eventos disponibles (no te podrás registrar si aún no tienes una cuenta)."
+    }
+]
+}

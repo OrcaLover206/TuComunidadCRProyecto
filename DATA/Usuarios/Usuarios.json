@@ -1,16 +1,95 @@
 {
-
-"usuarios": [
-    {
-        "id": "U1000",
-        "username": "admin",
-        "password": "admin123"
-    },
-    {
-        "id": "U1001",
-        "username": "Matthew",
-        "password": "Matthew123"
+    "usuarios": [
+        {
+        "ID": 1001,
+        "Nombre": "Carlos Ramírez",
+        "Telefono": "88123456",
+        "Correo": "carlos.ramirez@gmail.com",
+        "Fecha de nacimiento": "1990-03-15",
+        "username": "carlos_r",
+        "password": "carlos123"
+        },
+        {
+        "ID": 1002,
+        "Nombre": "María Fernández",
+        "Telefono": "87654321",
+        "Correo": "maria.fernandez@hotmail.com",
+        "Fecha de nacimiento": "1995-07-22",
+        "username": "maria_f",
+        "password": "maria456"
+        },
+        {
+        "ID": 1003,
+        "Nombre": "Diego Solano",
+        "Telefono": "83219876",
+        "Correo": "diego.solano@yahoo.com",
+        "Fecha de nacimiento": "1988-11-30",
+        "username": "diego_s",
+        "password": "diego789"
+        },
+        {
+        "ID": 1004,
+        "Nombre": "Valeria Castro",
+        "Telefono": "86541230",
+        "Correo": "valeria.castro@gmail.com",
+        "Fecha de nacimiento": "2000-01-08",
+        "username": "vale_c",
+        "password": "vale2000"
+        },
+        {
+        "ID": 1005,
+        "Nombre": "Andrés Mora",
+        "Telefono": "89073412",
+        "Correo": "andres.mora@outlook.com",
+        "Fecha de nacimiento": "1993-05-19",
+        "username": "andres_m",
+        "password": "andres321"
+        },
+        {
+        "ID": 1006,
+        "Nombre": "Sofía Jiménez",
+        "Telefono": "84561789",
+        "Correo": "sofia.jimenez@gmail.com",
+        "Fecha de nacimiento": "1997-09-03",
+        "username": "sofi_j",
+        "password": "sofia654"
+        },
+        {
+        "ID": 1007,
+        "Nombre": "Luis Herrera",
+        "Telefono": "85234567",
+        "Correo": "luis.herrera@hotmail.com",
+        "Fecha de nacimiento": "1985-12-25",
+        "username": "luis_h",
+        "password": "luis987"
+        },
+        {
+        "ID": 1008,
+        "Nombre": "Camila Vargas",
+        "Telefono": "88907654",
+        "Correo": "camila.vargas@gmail.com",
+        "Fecha de nacimiento": "2002-04-14",
+        "username": "cami_v",
+        "password": "cami2002"
+        },
+        {
+        "ID": 1009,
+        "Nombre": "Roberto Quesada",
+        "Telefono": "86123490",
+        "Correo": "roberto.quesada@yahoo.com",
+        "Fecha de nacimiento": "1979-08-07",
+        "username": "rober_q",
+        "password": "rober111"
+        },
+        {
+        "ID": 1010,
+        "Nombre": "Isabella Rojas",
+        "Telefono": "87890123",
+        "Correo": "isabella.rojas@gmail.com",
+        "Fecha de nacimiento": "1998-02-28",
+        "username": "isa_r",
+        "password": "isa2024"
+        }
+    ]
     }
-]
 
-}
