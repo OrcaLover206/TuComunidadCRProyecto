@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TuComunidadCR | Tus Eventos</title>
+    <link rel="stylesheet" href="../CSS/estilos.css" />
+    <script src="../JS/scriptEventos.js"></script>
+  </head>
+
+  <body>
+    <nav>
+      <ul>
+        <img
+          src="../Images/logoWhite.png"
+          alt="Logo TuComunidadCR"
+          width="30"
+        />
+        <p>TuComunidadCR</p>
+        <a href="#" onclick="toggleMenu()">Cuenta</a>
+        <ul id="menuSinCuenta" style="display: none">
+          <li><a href="Index.html">Ir al Inicio</a></li>
+          <li><a href="Login.html">Iniciar Sesion</a></li>
+        </ul>
+        <ul id="submenu" style="display: none">
+          <li><a href="perfil.html">Perfil</a></li>
+          <li><a href="#" onclick="confirmLogout()">Salir</a></li>
+        </ul>
+        <li><a href="Main.html">Inicio</a></li>
+      </ul>
+    </nav>
+
+    <div id="eventos-usuario">
+      <h2>Mis Eventos</h2>
+      <div id="eventos-inscritos"></div>
+    </div>
+
+    <footer>
+      <img src="../Images/logoBlack.png" alt="Logo TuComunidadCR" width="30" />
+      <ul>
+        <li>About us</li>
+        <li>Ayuda</li>
+        <li>Contacto</li>
+      </ul>
+      <hr />
+      <p>&copy; 2024 Eventos de la Comunidad. Todos los derechos reservados.</p>
+    </footer>
+  </body>
+</html>

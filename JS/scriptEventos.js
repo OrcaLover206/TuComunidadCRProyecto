@@ -54,7 +54,7 @@ function crearEventoDiv(evento) {
     const usuarioActivo = JSON.parse(localStorage.getItem("usuarioActivo"));
     if (!usuarioActivo) {
       alert("No hay un usuario activo.");
-      alert("Seras redirigido al Login para iniciar sesión o registrarte.");
+      alert("Serás redirigido al Login para iniciar sesión o registrarte.");
       setTimeout(() => {
         window.location.href = "Login.html";
       }, 1000);
@@ -70,7 +70,7 @@ function crearEventoDiv(evento) {
     }
 
     let respuesta = window.confirm(
-      `Estas seguro de querer registrarse en el evento ${evento.nombre}?`,
+      `¿Estás seguro de querer registrarse en el evento ${evento.nombre}?`,
     );
 
     if (respuesta === true) {
@@ -95,16 +95,16 @@ function crearEventoDiv(evento) {
   return div;
 }
 
-// =================== FUNCIÓN PRINCIPAL ===================
-// Inicializa combos y carga eventos.
-// Destacados se cargan una sola vez (los 3 más cercanos).
-// Comunidad se actualiza cada vez que cambia categoría, provincia o municipalidad.
+// =================== FUNCIÓN PRINCIPAL DE INICIALIZACIÓN ===================
+// Inicializa combos de filtros (categoría, provincia, municipalidad).
+// Carga todos los eventos y los muestra con capacidad de filtrado dinámico.
 async function inicializar() {
   const categoriasSelect = document.getElementById("categorias");
   const provinciasSelect = document.getElementById("provincias");
   const municipalidadesSelect = document.getElementById("municipalidades");
+  const eventosContainer = document.getElementById("eventos-lista");
 
-  // ---------- EVENTOS ----------
+  // ---------- CARGAR EVENTOS ----------
   const dataEventos = await cargarJSON("../DATA/Eventos/eventos.json");
   const cuposGuardados = JSON.parse(localStorage.getItem("cuposEventos")) || {};
   dataEventos.eventos.forEach((ev) => {
@@ -112,10 +112,8 @@ async function inicializar() {
       ev.disponibles = cuposGuardados[ev.nombre];
     }
   });
-  const destacadosContainer = document.getElementById("eventos-destacados");
-  const comunidadContainer = document.getElementById("eventos-comunidad");
 
-  // Cargar categorías
+  // ---------- CARGAR CATEGORÍAS ----------
   const categoriasData = await cargarJSON("../DATA/ComboBox/categorias.json");
   categoriasData.categorias.forEach((cat) => {
     const option = document.createElement("option");
@@ -124,7 +122,7 @@ async function inicializar() {
     categoriasSelect.appendChild(option);
   });
 
-  // Cargar provincias
+  // ---------- CARGAR PROVINCIAS ----------
   const provinciasData = await cargarJSON("../DATA/ComboBox/provincias.json");
   provinciasData.provincias.forEach((prov) => {
     const option = document.createElement("option");
@@ -133,7 +131,7 @@ async function inicializar() {
     provinciasSelect.appendChild(option);
   });
 
-  // Cargar municipalidades
+  // ---------- CARGAR MUNICIPALIDADES ----------
   const municipalidadesData = await cargarJSON(
     "../DATA/ComboBox/municipalidades.json",
   );
@@ -148,29 +146,18 @@ async function inicializar() {
       option.textContent = muni;
       municipalidadesSelect.appendChild(option);
     });
-    renderEventosComunidad();
+    renderEventos();
   });
 
   // Inicializar con la primera provincia seleccionada
   provinciasSelect.value = provinciasData.provincias[0];
   provinciasSelect.dispatchEvent(new Event("change"));
 
-  // Ordenar todos los eventos por fecha de inicio
-  const eventosOrdenados = [...dataEventos.eventos].sort((a, b) => {
-    const fechaA = new Date(a.fecha_inicio);
-    const fechaB = new Date(b.fecha_inicio);
-    return fechaA - fechaB;
-  });
-
-  // Mostrar los primeros 3 eventos más cercanos en destacados (solo una vez)
-  eventosOrdenados.slice(0, 3).forEach((ev) => {
-    destacadosContainer.appendChild(crearEventoDiv(ev));
-  });
-
-  // =================== FUNCIÓN PARA RENDERIZAR COMUNIDAD ===================
-  // Filtra por categoría, provincia y municipalidad seleccionados.
-  function renderEventosComunidad() {
-    comunidadContainer.innerHTML = ""; // limpiar antes de renderizar
+  // =================== FUNCIÓN PARA RENDERIZAR EVENTOS CON FILTROS ===================
+  // Filtra los eventos por categoría, provincia y municipalidad seleccionados.
+  // Renderiza solo los eventos que coinciden con los criterios de filtro.
+  function renderEventos() {
+    eventosContainer.innerHTML = ""; // limpiar antes de renderizar
 
     const categoriaSeleccionada = categoriasSelect.value;
     const provinciaSeleccionada = provinciasSelect.value;
@@ -194,58 +181,25 @@ async function inicializar() {
       );
     }
 
-    filtrados.forEach((ev) => {
-      comunidadContainer.appendChild(crearEventoDiv(ev));
-    });
+    if (filtrados.length === 0) {
+      eventosContainer.innerHTML =
+        "<p>No hay eventos disponibles con los filtros seleccionados.</p>";
+    } else {
+      filtrados.forEach((ev) => {
+        eventosContainer.appendChild(crearEventoDiv(ev));
+      });
+    }
+
+    bloquearEventosRegistrados();
   }
 
-  // Inicializar comunidad con todos los eventos
-  renderEventosComunidad();
+  // Inicializar mostrando todos los eventos
+  renderEventos();
 
-  // Actualizar comunidad cada vez que cambia categoría o municipalidad
-  categoriasSelect.addEventListener("change", renderEventosComunidad);
-  municipalidadesSelect.addEventListener("change", renderEventosComunidad);
-
-  bloquearEventosRegistrados();
+  // Actualizar eventos cada vez que cambian los filtros
+  categoriasSelect.addEventListener("change", renderEventos);
+  municipalidadesSelect.addEventListener("change", renderEventos);
 }
-
-// =================== MENÚ Y LOGOUT ===================
-// Alterna la visibilidad del submenú de "Cuenta".
-function toggleMenu() {
-  const menuWithoutProfile = document.getElementById("menuSinCuenta");
-  const usuarioActivo = JSON.parse(localStorage.getItem("usuarioActivo"));
-  if (!usuarioActivo) {
-    menuWithoutProfile.style.display =
-      menuWithoutProfile.style.display === "none" ? "block" : "none";
-  } else {
-    const submenu = document.getElementById("submenu");
-    submenu.style.display = submenu.style.display === "none" ? "block" : "none";
-  }
-}
-
-// Muestra confirmación al cerrar sesión y redirige si se acepta.
-function confirmLogout() {
-  const seguro = confirm("¿Estás seguro de cerrar sesión?");
-  if (seguro) {
-    localStorage.removeItem("usuarioActivo");
-    alert("Sesión cerrada correctamente");
-    window.location.href = "Index.html";
-  } else {
-    alert("Acción cancelada");
-  }
-}
-
-// Ejecutar al cargar la página
-inicializar();
-
-let usuarios = JSON.parse(localStorage.getItem("usuariosRegistrados")) || [];
-
-usuarios = usuarios.map((u) => {
-  if (!u.eventos) {
-    u.eventos = [];
-  }
-  return u;
-});
 
 // =================== FUNCIÓN PARA REGISTRAR USUARIO EN EVENTO ===================
 // Agrega un evento a la lista de eventos del usuario activo.
@@ -287,52 +241,25 @@ function bloquearEventosRegistrados() {
   });
 }
 
-// =================== FUNCIÓN PARA CARGAR EVENTOS DEL JSON ===================
-// Obtiene la lista de todos los eventos desde el archivo eventos.json.
-// Devuelve un array de objetos evento o un array vacío si hay error.
-async function cargarEventos() {
-  try {
-    const respuesta = await fetch("../DATA/Eventos/eventos.json");
-    if (!respuesta.ok) throw new Error("Error cargando eventos.json");
-    const data = await respuesta.json();
-    return data.eventos; // asumimos que el JSON tiene { "eventos": [...] }
-  } catch (error) {
-    console.error(error);
-    return [];
+// =================== MENÚ Y LOGOUT ===================
+// Alterna la visibilidad del menú. Solo muestra la opción de cerrar sesión.
+function toggleMenu() {
+  const submenu = document.getElementById("submenu");
+  submenu.style.display = submenu.style.display === "none" ? "block" : "none";
+}
+
+// =================== FUNCIÓN PARA LOGOUT ===================
+// Muestra confirmación al cerrar sesión y redirige si se acepta.
+function confirmLogout() {
+  const seguro = confirm("¿Estás seguro de cerrar sesión?");
+  if (seguro) {
+    localStorage.removeItem("usuarioActivo");
+    alert("Sesión cerrada correctamente");
+    window.location.href = "Index.html";
+  } else {
+    alert("Acción cancelada");
   }
 }
 
-// =================== FUNCIÓN PARA INICIALIZAR AUTOCOMPLETADO ===================
-// Configura un campo de búsqueda con sugerencias de eventos en tiempo real.
-// Muestra eventos que coinciden con el texto ingresado y permite seleccionar uno.
-async function inicializarAutocomplete() {
-  const input = document.getElementById("busqueda");
-  const sugerenciasDiv = document.getElementById("sugerencias");
-
-  const eventos = await cargarEventos();
-
-  input.addEventListener("input", () => {
-    const valor = input.value.toLowerCase();
-    sugerenciasDiv.innerHTML = "";
-
-    if (valor) {
-      const filtrados = eventos.filter((ev) =>
-        ev.nombre.toLowerCase().includes(valor),
-      );
-      filtrados.forEach((ev) => {
-        const opcion = document.createElement("div");
-        opcion.textContent = ev.nombre;
-        opcion.addEventListener("click", () => {
-          input.value = ev.nombre;
-          sugerenciasDiv.style.display = "none";
-        });
-        sugerenciasDiv.appendChild(opcion);
-      });
-      sugerenciasDiv.style.display = filtrados.length ? "block" : "none";
-    } else {
-      sugerenciasDiv.style.display = "none";
-    }
-  });
-}
-
-inicializarAutocomplete();
+// Ejecutar al cargar la página
+inicializar();
