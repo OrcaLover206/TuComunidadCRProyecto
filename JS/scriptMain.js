@@ -47,16 +47,47 @@ function crearEventoDiv(evento) {
 
   // Botón de inscripción
   const boton = document.createElement("button");
+  boton.id = `btn-${evento.nombre.replace(/\s+/g, "-").toLowerCase()}`;
   boton.textContent = "Inscribirse";
   boton.addEventListener("click", () => {
+    const usuarioActivo = JSON.parse(localStorage.getItem('usuarioActivo'));
+    if (!usuarioActivo) {
+    alert("No hay un usuario activo.");
+    alert("Seras redirigido al Login para iniciar sesión o registrarte.");
+    setTimeout(() => {
+            window.location.href = 'Login.html'; 
+        }, 1000);
+    return;
+  }
+
+    const yaRegistrado = usuarioActivo.eventos.some(e => e.nombre === evento.nombre);
+    if (yaRegistrado) {
+    alert("Ya estás registrado en este evento.");
+    return;
+  }
+
+  let respuesta = window.confirm(`Estas seguro de querer registrarse en el evento ${evento.nombre}?`);
+
+  if (respuesta === true) {
+
     if (evento.disponibles > 0) {
+      registrarUsuarioEnEvento(evento, boton);
+      
       evento.disponibles--; // restar un cupo
       disponibles.textContent = `Cupos disponibles: ${evento.disponibles}`;
+      let cupos = JSON.parse(localStorage.getItem('cuposEventos')) || {};
+      cupos[evento.nombre] = evento.disponibles;
+      localStorage.setItem('cuposEventos', JSON.stringify(cupos));
       alert("Inscripción realizada correctamente");
     } else {
       alert("No quedan cupos disponibles");
     }
-  });
+  }else{
+    alert("Registro cancelado.");
+  }
+
+  }
+);
   div.appendChild(boton);
 
   return div;
@@ -70,6 +101,17 @@ async function inicializar() {
   const categoriasSelect = document.getElementById("categorias");
   const provinciasSelect = document.getElementById("provincias");
   const municipalidadesSelect = document.getElementById("municipalidades");
+
+    // ---------- EVENTOS ----------
+  const dataEventos = await cargarJSON("../DATA/Eventos/eventos.json");
+  const cuposGuardados = JSON.parse(localStorage.getItem('cuposEventos')) || {};
+  dataEventos.eventos.forEach(ev => {
+    if (cuposGuardados[ev.nombre] !== undefined) {
+      ev.disponibles = cuposGuardados[ev.nombre];
+    }
+  });
+  const destacadosContainer = document.getElementById("eventos-destacados");
+  const comunidadContainer = document.getElementById("eventos-comunidad");
 
   // Cargar categorías
   const categoriasData = await cargarJSON("../DATA/ComboBox/categorias.json");
@@ -110,11 +152,6 @@ async function inicializar() {
   // Inicializar con la primera provincia seleccionada
   provinciasSelect.value = provinciasData.provincias[0];
   provinciasSelect.dispatchEvent(new Event("change"));
-
-  // ---------- EVENTOS ----------
-  const dataEventos = await cargarJSON("../DATA/Eventos/eventos.json");
-  const destacadosContainer = document.getElementById("eventos-destacados");
-  const comunidadContainer = document.getElementById("eventos-comunidad");
 
   // Ordenar todos los eventos por fecha de inicio
   const eventosOrdenados = [...dataEventos.eventos].sort((a, b) => {
@@ -166,6 +203,8 @@ async function inicializar() {
   // Actualizar comunidad cada vez que cambia categoría o municipalidad
   categoriasSelect.addEventListener("change", renderEventosComunidad);
   municipalidadesSelect.addEventListener("change", renderEventosComunidad);
+
+  bloquearEventosRegistrados();
 }
 
 // =================== MENÚ Y LOGOUT ===================
@@ -179,6 +218,7 @@ function toggleMenu() {
 function confirmLogout() {
   const seguro = confirm("¿Estás seguro de cerrar sesión?");
   if (seguro) {
+    localStorage.removeItem('usuarioActivo');
     alert("Sesión cerrada correctamente");
     window.location.href = "Login.html";
   } else {
@@ -188,3 +228,47 @@ function confirmLogout() {
 
 // Ejecutar al cargar la página
 inicializar();
+
+let usuarios = JSON.parse(localStorage.getItem('usuariosRegistrados')) || [];
+
+usuarios = usuarios.map(u => {
+    if (!u.eventos) {
+        u.eventos = [];
+    }
+    return u;
+});
+
+function registrarUsuarioEnEvento(evento, boton) {
+  const usuarioActivo = JSON.parse(localStorage.getItem('usuarioActivo'));
+  if (!usuarioActivo.eventos) {
+    usuarioActivo.eventos = [];
+  }
+
+  usuarioActivo.eventos.push(evento);
+  localStorage.setItem('usuarioActivo', JSON.stringify(usuarioActivo));
+
+  let usuarios = JSON.parse(localStorage.getItem('usuariosRegistrados')) || [];
+  usuarios = usuarios.map(u =>
+    u.username === usuarioActivo.username ? usuarioActivo : u
+  );
+  localStorage.setItem('usuariosRegistrados', JSON.stringify(usuarios));
+
+  boton.textContent = "Registrado";
+  boton.disabled = true;
+}
+
+
+function bloquearEventosRegistrados() {
+  const usuarioActivo = JSON.parse(localStorage.getItem('usuarioActivo'));
+  if (!usuarioActivo || !usuarioActivo.eventos) return;
+  const eventosRegistrados = usuarioActivo.eventos.map(e => e.nombre);
+
+  eventosRegistrados.forEach(nombreEvento => {
+    const boton = document.getElementById(`btn-${nombreEvento.replace(/\s+/g, "-").toLowerCase()}`);
+    if (boton) {
+      boton.textContent = "Registrado";
+      boton.disabled = true;
+    }
+  });
+}
+
