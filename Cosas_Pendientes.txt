@@ -1,3 +1,6 @@
-1.Editar el Sign up agregar los campos (cedula, nombre, Edad, Correo y Telefono)
-2. Poner los links en los botones de sign up y log in 
-3. 
+
+
+1.Barra de busqueda de eventos que se autocomplete
+2.Css de Main
+3.Index texto dinamico 
+4.Pagina mis eventos registrados
