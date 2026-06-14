@@ -1,0 +1,314 @@
+/* ===== RESETEO GLOBAL ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-family: Raleway, sans-serif;
+  background-color: #f5f5f5;
+}
+
+body {
+  margin: 90px 20px;
+}
+
+/* ===== NAVEGACIÓN ===== */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  background-color: white;
+  color: #333;
+  padding: 15px 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 100;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.nav-left {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  list-style: none;
+}
+
+.nav-logo {
+  width: 40px;
+  height: auto;
+}
+
+.nav-title {
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin: 0;
+  text-decoration: none;
+  color: #333;
+}
+
+/* ===== BOTÓN CUENTA ===== */
+.nav-cuenta {
+  background-color: #4caf50;
+  color: white;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 8px 18px;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+  white-space: nowrap;
+}
+
+.nav-cuenta:hover {
+  background-color: #45a049;
+}
+
+/* ===== MENÚS DESPLEGABLES ===== */
+#menuSinCuenta,
+#submenu {
+  position: fixed;
+  top: 65px;
+  right: 30px;
+  background-color: #2c3e50;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 0;
+  list-style: none;
+  min-width: 160px;
+  z-index: 101;
+  overflow: hidden;
+}
+
+#menuSinCuenta li,
+#submenu li {
+  padding: 0;
+  margin: 0;
+}
+
+#menuSinCuenta li a,
+#submenu li a {
+  display: block;
+  padding: 10px 15px;
+  color: white;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+#menuSinCuenta li a:hover,
+#submenu li a:hover {
+  background-color: #4caf50;
+}
+
+#submenu li:last-child a {
+  background-color: #e53935;
+}
+
+#submenu li:last-child a:hover {
+  background-color: #b71c1c;
+}
+
+/* ===== BARRA DE BÚSQUEDA ===== */
+.autocomplete {
+  display: flex;
+  align-items: center;
+  position: relative;
+  margin-left: auto;
+  margin-right: 20px;
+  gap: 8px;
+}
+
+#search-icon {
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  opacity: 0.5;
+  transition: opacity 0.2s ease;
+  flex-shrink: 0;
+  padding: 10px;
+  box-sizing: content-box;
+}
+
+#search-icon:hover {
+  opacity: 1;
+}
+
+#busqueda {
+  display: none;
+  padding: 10px 16px;
+  border: 1px solid #ddd;
+  border-radius: 25px;
+  width: 260px;
+  font-size: 1rem;
+  font-family: Raleway, sans-serif;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#busqueda.search-visible {
+  display: block;
+}
+
+#busqueda:focus {
+  outline: none;
+  border-color: #2bbfbf;
+}
+
+.sugerencias {
+  position: absolute;
+  top: 110%;
+  right: 0;
+  background-color: white;
+  border-radius: 8px;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 101;
+  width: 260px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.sugerencias-item {
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.sugerencias-item:hover {
+  background-color: #f0f0f0;
+}
+
+#bienvenida {
+  position: relative;
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.16), rgba(0, 0, 0, 0.785)),
+    url("../Images/RioCeleste.jpeg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 120px;
+  border-radius: 25px;
+  margin-bottom: 40px;
+}
+
+#bienvenida h1 {
+  font-size: 2.5rem;
+  color: white;
+  position: absolute;
+  bottom: 40px;
+  left: 25px;
+}
+
+/*===== MAIN ===== */
+main {
+  margin: 20px auto;
+  align-items: left;
+  display: flex;
+  flex-direction: column;
+}
+main h2 {
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 20px;
+}
+main form {
+  padding: 30px;
+}
+
+label {
+  color: #333;
+  font-size: 1em;
+  font-weight: bold;
+  font-family: Raleway, sans-serif;
+}
+
+/* ===== INPUTS ===== */
+input {
+  margin-top: 8px;
+  background-color: white;
+  border: 2px solid #9d9d9d;
+  padding: 0.8rem 1.2rem;
+  color: #333;
+  font-size: 1em;
+  font-family: Arial, sans-serif;
+  outline: none;
+  width: 100%;
+  border-radius: 15px;
+}
+
+input::placeholder {
+  color: rgba(51, 51, 51, 0.6);
+}
+
+main button {
+  margin-top: 20px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  font-size: 1em;
+  font-weight: bold;
+  font-family: Raleway, sans-serif;
+  cursor: pointer;
+  border-radius: 8px;
+  width: 100%;
+  transition: 0.5s ease;
+}
+
+main button:hover {
+  transition: 0.5s ease;
+  background-color: #2d9bae;
+}
+
+/* ===== FOOTER ===== */
+footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 40px 20px;
+  background-color: #f5f5f5;
+  margin-top: 60px;
+}
+
+footer img {
+  width: 40px;
+  height: auto;
+}
+
+footer ul {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+footer ul li {
+  font-size: 0.95rem;
+  color: #444;
+  cursor: pointer;
+  font-weight: bold;
+  font-family: Raleway, sans-serif;
+}
+
+footer ul li:hover {
+  color: #2bbfbf;
+}
+
+footer hr {
+  width: 100%;
+  border: none;
+  border-top: 1px solid #a3a3a3;
+}
+
+footer p {
+  font-size: 0.85rem;
+  color: #888;
+  margin: 0;
+}

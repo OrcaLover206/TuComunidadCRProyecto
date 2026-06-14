@@ -103,7 +103,6 @@ main {
   gap: 0.8rem;
 }
 
-/* CAMBIADO: de margin-top: 1rem a 0 para espaciado uniforme */
 .form-group:nth-child(2) {
   margin-top: 0;
 }
