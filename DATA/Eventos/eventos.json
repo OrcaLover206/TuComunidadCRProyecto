@@ -49,7 +49,7 @@
       "municipalidad": "Cartago",
       "provincia": "Cartago",
       "disponibles": 80,
-      "imagen": "../IMG/Eventos/carrera-pet-friendly.jpg"
+      "imagen": "../IMAGES/Eventos/carrera-pet-friendly.png"
     },
     {
       "nombre": "Festival Gastronómico",
@@ -66,7 +66,7 @@
       "municipalidad": "Heredia",
       "provincia": "Heredia",
       "disponibles": 60,
-      "imagen": "../IMG/Eventos/festival-gastronomico.jpg"
+      "imagen": "../IMAGES/Eventos/festival-gastronomico.png"
     },
     {
       "nombre": "Feria de Mascotas",
@@ -83,7 +83,7 @@
       "municipalidad": "Desamparados",
       "provincia": "San José",
       "disponibles": 40,
-      "imagen": "../IMG/Eventos/feria-mascotas.jpg"
+      "imagen": "../IMAGES/Eventos/feria-mascotas.jpg"
     },
     {
       "nombre": "Festival Deportivo Juvenil",
@@ -100,7 +100,7 @@
       "municipalidad": "Alajuela",
       "provincia": "Alajuela",
       "disponibles": 120,
-      "imagen": "../IMG/Eventos/festival-deportivo-juvenil.jpg"
+      "imagen": "../IMAGES/Eventos/festival-deportivo-juvenil.jpg"
     },
     {
       "nombre": "Encuentro Cultural Religioso",
@@ -117,7 +117,7 @@
       "municipalidad": "Cartago",
       "provincia": "Cartago",
       "disponibles": 70,
-      "imagen": "../IMG/Eventos/encuentro-cultural-religioso.jpg"
+      "imagen": "../IMAGES/Eventos/encuentro-cultural-religioso.jpg"
     }
   ]
 }

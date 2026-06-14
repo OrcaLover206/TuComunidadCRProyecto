@@ -82,6 +82,7 @@ nav {
 .sugerencias-item {
   padding: 8px 12px;
   cursor: pointer;
+  color: #333;
 }
 
 .sugerencias-item:hover {
