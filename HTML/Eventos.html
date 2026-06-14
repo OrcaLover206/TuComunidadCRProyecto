@@ -4,39 +4,53 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TuComunidadCR | Tus Eventos</title>
-    <link rel="shortcut icon" href="../Images/logoGREY.jpeg" type="image/png" />
-    <link rel="stylesheet" href="../CSS/estils.css" />
+    <link
+      rel="shortcut icon"
+      href="../IMAGES/logoGREY.jpeg"
+      type="image/jpeg"
+    />
+    <link rel="stylesheet" href="../CSS/EventosCss.css" />
   </head>
 
   <body>
     <nav>
-      <ul>
+      <ul class="nav-left">
         <img
-          src="../Images/logoWhite.png"
+          src="../IMAGES/logoGREY.jpeg"
           alt="Logo TuComunidadCR"
-          width="30"
+          class="nav-logo"
         />
-        <p>TuComunidadCR</p>
-        <a href="#" onclick="toggleMenu()">Cuenta</a>
+        <a href="Main.html" class="nav-title">TuComunidadCR</a>
         <ul id="menuSinCuenta" style="display: none">
-          <li><a href="Index.html">Ir al Inicio</a></li>
           <li><a href="Login.html">Iniciar Sesion</a></li>
+          <li><a href="SignUp.html">Registrarse</a></li>
         </ul>
         <ul id="submenu" style="display: none">
           <li><a href="perfil.html">Perfil</a></li>
+          <li><a href="Eventos.html">Tus Eventos</a></li>
           <li><a href="#" onclick="confirmLogout()">Salir</a></li>
         </ul>
-        <li><a href="Main.html">Regresar a Eventos</a></li>
       </ul>
+
+      <div class="autocomplete" id="autocomplete-container">
+        <img
+          src="https://cdn-icons-png.flaticon.com/512/54/54481.png"
+          alt="Buscar"
+          id="search-icon"
+          onclick="toggleSearch()"
+        />
+        <input id="busqueda" type="text" placeholder="Buscar..." />
+        <div id="sugerencias" class="sugerencias"></div>
+      </div>
+
+      <a href="#" onclick="toggleMenu()" class="nav-cuenta">Cuenta</a>
     </nav>
 
-    <div id="eventos-usuario">
-      <h2>Mis Eventos</h2>
-      <div id="eventos-inscritos"></div>
-    </div>
+    <h2>Mis Eventos</h2>
+    <div id="eventos-inscritos"></div>
 
     <footer>
-      <img src="../Images/logoBlack.png" alt="Logo TuComunidadCR" width="30" />
+      <img src="../IMAGES/logoBlack.png" alt="Logo TuComunidadCR" />
       <ul>
         <li>About us</li>
         <li>Ayuda</li>
@@ -45,6 +59,7 @@
       <hr />
       <p>&copy; 2024 Eventos de la Comunidad. Todos los derechos reservados.</p>
     </footer>
+
     <script src="../JS/scriptEventos.js"></script>
   </body>
 </html>
