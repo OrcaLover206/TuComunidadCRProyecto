@@ -1,5 +1,4 @@
 // =================== FUNCIÓN PARA CARGAR JSON ===================
-// Carga un archivo JSON desde la ruta indicada y devuelve su contenido.
 async function cargarJSON(ruta) {
   const respuesta = await fetch(ruta);
   if (!respuesta.ok) {
@@ -9,52 +8,97 @@ async function cargarJSON(ruta) {
   return await respuesta.json();
 }
 
+// =================== FUNCIÓN PARA OBTENER CLASE DE CATEGORÍA ===================
+
+function obtenerClaseCategoria(categoria) {
+  const categoriaLower = categoria.toLowerCase();
+  if (categoriaLower.includes("deport"))   return "categoria-deportes";
+  if (categoriaLower.includes("venta"))    return "categoria-ventas";
+  if (categoriaLower.includes("actividad"))return "categoria-actividades";
+  if (categoriaLower.includes("religios")) return "categoria-religioso";
+  if (categoriaLower.includes("pet"))      return "categoria-pet";
+  if (categoriaLower.includes("cultura"))  return "categoria-cultura";
+  if (categoriaLower.includes("arte"))     return "categoria-arte";
+  if (categoriaLower.includes("música") || categoriaLower.includes("musica")) return "categoria-musica";
+  if (categoriaLower.includes("educaci"))  return "categoria-educacion";
+  if (categoriaLower.includes("social"))   return "categoria-social";
+  if (categoriaLower.includes("tecnolog")) return "categoria-tecnologia";
+  return "categoria-default";
+}
+
 // =================== FUNCIÓN PARA CREAR DIV DE EVENTO ===================
-// Construye dinámicamente un elemento div con la información completa de un evento.
-// Incluye nombre, descripción, fechas, ubicación, categorías, municipalidad, provincia y cupos disponibles.
-// Agrega un botón de inscripción que registra al usuario, reduce cupos y desactiva el botón si ya está registrado.
 function crearEventoDiv(evento) {
   const div = document.createElement("div");
   div.className = "evento";
 
+  // Imagen
+  if (evento.imagen) {
+    const img = document.createElement("img");
+    img.src = evento.imagen;
+    img.alt = `Imagen de ${evento.nombre}`;
+    img.className = "evento-imagen";
+    img.onerror = () => {
+      img.style.display = "none";
+    };
+    div.appendChild(img);
+  }
+
+  // Contenedor de contenido (todo lo que va a la derecha de la imagen)
+  const contenido = document.createElement("div");
+  contenido.className = "evento-contenido";
+
+  // Fila superior: nombre + categorías
+  const filaSuperior = document.createElement("div");
+  filaSuperior.className = "evento-fila-superior";
+
   const nombre = document.createElement("h3");
   nombre.textContent = evento.nombre;
-  div.appendChild(nombre);
+  filaSuperior.appendChild(nombre);
 
+  const categoriasContainer = document.createElement("div");
+  categoriasContainer.className = "evento-categorias";
+  evento.categorias.forEach((cat) => {
+    const span = document.createElement("span");
+    span.className = obtenerClaseCategoria(cat);
+    span.textContent = cat;
+    categoriasContainer.appendChild(span);
+  });
+  filaSuperior.appendChild(categoriasContainer);
+  contenido.appendChild(filaSuperior);
+
+  // Descripción
   const descripcion = document.createElement("p");
+  descripcion.className = "evento-descripcion";
   descripcion.textContent = evento.descripcion;
-  div.appendChild(descripcion);
+  contenido.appendChild(descripcion);
 
+  // Fecha
   const fechas = document.createElement("p");
-  fechas.textContent = `Inicio: ${evento.fecha_inicio} | Fin: ${evento.fecha_fin}`;
-  div.appendChild(fechas);
+  fechas.className = "evento-meta";
+  fechas.innerHTML = `<strong>Fecha</strong> : ${evento.fecha_inicio}`;
+  contenido.appendChild(fechas);
 
+  // Dirección
   const ubicacion = document.createElement("p");
-  ubicacion.textContent = `Ubicación: ${evento.ubicacion}`;
-  div.appendChild(ubicacion);
+  ubicacion.className = "evento-meta";
+  ubicacion.innerHTML = `<strong>Direccion</strong> :  ${evento.ubicacion}`;
+  contenido.appendChild(ubicacion);
 
-  const categorias = document.createElement("p");
-  categorias.textContent = `Categorías: ${evento.categorias.join(", ")}`;
-  div.appendChild(categorias);
-
-  const muniProv = document.createElement("p");
-  muniProv.textContent = `Municipalidad: ${evento.municipalidad} | Provincia: ${evento.provincia}`;
-  div.appendChild(muniProv);
-
-  // Mostrar cupos disponibles
+  // Cupos
   const disponibles = document.createElement("p");
+  disponibles.className = "evento-meta";
   disponibles.textContent = `Cupos disponibles: ${evento.disponibles}`;
-  div.appendChild(disponibles);
+  contenido.appendChild(disponibles);
 
-  // Botón de inscripción
+  // Botón
   const boton = document.createElement("button");
   boton.id = `btn-${evento.nombre.replace(/\s+/g, "-").toLowerCase()}`;
-  boton.textContent = "Inscribirse";
+  boton.textContent = "REGISTRO";
   boton.addEventListener("click", () => {
     const usuarioActivo = JSON.parse(localStorage.getItem("usuarioActivo"));
     if (!usuarioActivo) {
       alert("No hay un usuario activo.");
-      alert("Seras redirigido al Login para iniciar sesión o registrarte.");
+      alert("Serás redirigido al Login para iniciar sesión o registrarte.");
       setTimeout(() => {
         window.location.href = "Login.html";
       }, 1000);
@@ -69,15 +113,13 @@ function crearEventoDiv(evento) {
       return;
     }
 
-    let respuesta = window.confirm(
-      `Estas seguro de querer registrarse en el evento ${evento.nombre}?`,
+    const respuesta = window.confirm(
+      `¿Estás seguro de querer registrarse en el evento ${evento.nombre}?`,
     );
-
     if (respuesta === true) {
       if (evento.disponibles > 0) {
         registrarUsuarioEnEvento(evento, boton);
-
-        evento.disponibles--; // restar un cupo
+        evento.disponibles--;
         disponibles.textContent = `Cupos disponibles: ${evento.disponibles}`;
         let cupos = JSON.parse(localStorage.getItem("cuposEventos")) || {};
         cupos[evento.nombre] = evento.disponibles;
@@ -90,21 +132,18 @@ function crearEventoDiv(evento) {
       alert("Registro cancelado.");
     }
   });
-  div.appendChild(boton);
+  contenido.appendChild(boton);
+  div.appendChild(contenido);
 
   return div;
 }
-
 // =================== FUNCIÓN PRINCIPAL ===================
-// Inicializa combos y carga eventos.
-// Destacados se cargan una sola vez (los 3 más cercanos).
-// Comunidad se actualiza cada vez que cambia categoría, provincia o municipalidad.
 async function inicializar() {
   const categoriasSelect = document.getElementById("categorias");
   const provinciasSelect = document.getElementById("provincias");
   const municipalidadesSelect = document.getElementById("municipalidades");
 
-  // ---------- EVENTOS ----------
+  // Cargar eventos
   const dataEventos = await cargarJSON("../DATA/Eventos/eventos.json");
   const cuposGuardados = JSON.parse(localStorage.getItem("cuposEventos")) || {};
   dataEventos.eventos.forEach((ev) => {
@@ -112,11 +151,16 @@ async function inicializar() {
       ev.disponibles = cuposGuardados[ev.nombre];
     }
   });
+
   const destacadosContainer = document.getElementById("eventos-destacados");
   const comunidadContainer = document.getElementById("eventos-comunidad");
 
-  // Cargar categorías
+  // Cargar categorías con opción vacía inicial
   const categoriasData = await cargarJSON("../DATA/ComboBox/categorias.json");
+  const defaultCat = document.createElement("option");
+  defaultCat.value = "";
+  defaultCat.textContent = "Todas las categorías";
+  categoriasSelect.appendChild(defaultCat);
   categoriasData.categorias.forEach((cat) => {
     const option = document.createElement("option");
     option.value = cat;
@@ -124,8 +168,12 @@ async function inicializar() {
     categoriasSelect.appendChild(option);
   });
 
-  // Cargar provincias
+  // Cargar provincias con opción vacía inicial
   const provinciasData = await cargarJSON("../DATA/ComboBox/provincias.json");
+  const defaultProv = document.createElement("option");
+  defaultProv.value = "";
+  defaultProv.textContent = "Todas las provincias";
+  provinciasSelect.appendChild(defaultProv);
   provinciasData.provincias.forEach((prov) => {
     const option = document.createElement("option");
     option.value = prov;
@@ -138,39 +186,43 @@ async function inicializar() {
     "../DATA/ComboBox/municipalidades.json",
   );
 
-  // Evento: cuando cambia la provincia, actualizar municipalidades
+  // Cuando cambia la provincia, actualizar municipalidades
   provinciasSelect.addEventListener("change", () => {
     municipalidadesSelect.innerHTML = "";
+
+    const defaultMuni = document.createElement("option");
+    defaultMuni.value = "";
+    defaultMuni.textContent = "Todas las municipalidades";
+    municipalidadesSelect.appendChild(defaultMuni);
+
     const seleccion = provinciasSelect.value;
-    municipalidadesData[seleccion].forEach((muni) => {
-      const option = document.createElement("option");
-      option.value = muni;
-      option.textContent = muni;
-      municipalidadesSelect.appendChild(option);
-    });
+    if (seleccion && municipalidadesData[seleccion]) {
+      municipalidadesData[seleccion].forEach((muni) => {
+        const option = document.createElement("option");
+        option.value = muni;
+        option.textContent = muni;
+        municipalidadesSelect.appendChild(option);
+      });
+    }
+
     renderEventosComunidad();
   });
 
-  // Inicializar con la primera provincia seleccionada
-  provinciasSelect.value = provinciasData.provincias[0];
+  // Inicializar con filtros limpios
+  provinciasSelect.value = "";
   provinciasSelect.dispatchEvent(new Event("change"));
 
-  // Ordenar todos los eventos por fecha de inicio
+  // Mostrar los 3 eventos más cercanos en destacados
   const eventosOrdenados = [...dataEventos.eventos].sort((a, b) => {
-    const fechaA = new Date(a.fecha_inicio);
-    const fechaB = new Date(b.fecha_inicio);
-    return fechaA - fechaB;
+    return new Date(a.fecha_inicio) - new Date(b.fecha_inicio);
   });
-
-  // Mostrar los primeros 3 eventos más cercanos en destacados (solo una vez)
   eventosOrdenados.slice(0, 3).forEach((ev) => {
     destacadosContainer.appendChild(crearEventoDiv(ev));
   });
 
-  // =================== FUNCIÓN PARA RENDERIZAR COMUNIDAD ===================
-  // Filtra por categoría, provincia y municipalidad seleccionados.
+  // =================== RENDERIZAR COMUNIDAD ===================
   function renderEventosComunidad() {
-    comunidadContainer.innerHTML = ""; // limpiar antes de renderizar
+    comunidadContainer.innerHTML = "";
 
     const categoriaSeleccionada = categoriasSelect.value;
     const provinciaSeleccionada = provinciasSelect.value;
@@ -199,10 +251,6 @@ async function inicializar() {
     });
   }
 
-  // Inicializar comunidad con todos los eventos
-  renderEventosComunidad();
-
-  // Actualizar comunidad cada vez que cambia categoría o municipalidad
   categoriasSelect.addEventListener("change", renderEventosComunidad);
   municipalidadesSelect.addEventListener("change", renderEventosComunidad);
 
@@ -210,7 +258,6 @@ async function inicializar() {
 }
 
 // =================== MENÚ Y LOGOUT ===================
-// Alterna la visibilidad del submenú de "Cuenta".
 function toggleMenu() {
   const menuWithoutProfile = document.getElementById("menuSinCuenta");
   const usuarioActivo = JSON.parse(localStorage.getItem("usuarioActivo"));
@@ -223,7 +270,6 @@ function toggleMenu() {
   }
 }
 
-// Muestra confirmación al cerrar sesión y redirige si se acepta.
 function confirmLogout() {
   const seguro = confirm("¿Estás seguro de cerrar sesión?");
   if (seguro) {
@@ -235,21 +281,7 @@ function confirmLogout() {
   }
 }
 
-// Ejecutar al cargar la página
-inicializar();
-
-let usuarios = JSON.parse(localStorage.getItem("usuariosRegistrados")) || [];
-
-usuarios = usuarios.map((u) => {
-  if (!u.eventos) {
-    u.eventos = [];
-  }
-  return u;
-});
-
-// =================== FUNCIÓN PARA REGISTRAR USUARIO EN EVENTO ===================
-// Agrega un evento a la lista de eventos del usuario activo.
-// Actualiza tanto el localStorage del usuario activo como la lista general de usuarios.
+// =================== REGISTRAR USUARIO EN EVENTO ===================
 function registrarUsuarioEnEvento(evento, boton) {
   const usuarioActivo = JSON.parse(localStorage.getItem("usuarioActivo"));
   if (!usuarioActivo.eventos) {
@@ -269,16 +301,14 @@ function registrarUsuarioEnEvento(evento, boton) {
   boton.disabled = true;
 }
 
-// =================== FUNCIÓN PARA BLOQUEAR EVENTOS REGISTRADOS ===================
-// Desactiva y marca como "Registrado" los botones de eventos en los que el usuario ya se inscribió.
+// =================== BLOQUEAR EVENTOS REGISTRADOS ===================
 function bloquearEventosRegistrados() {
   const usuarioActivo = JSON.parse(localStorage.getItem("usuarioActivo"));
   if (!usuarioActivo || !usuarioActivo.eventos) return;
-  const eventosRegistrados = usuarioActivo.eventos.map((e) => e.nombre);
 
-  eventosRegistrados.forEach((nombreEvento) => {
+  usuarioActivo.eventos.forEach((e) => {
     const boton = document.getElementById(
-      `btn-${nombreEvento.replace(/\s+/g, "-").toLowerCase()}`,
+      `btn-${e.nombre.replace(/\s+/g, "-").toLowerCase()}`,
     );
     if (boton) {
       boton.textContent = "Registrado";
@@ -287,24 +317,20 @@ function bloquearEventosRegistrados() {
   });
 }
 
-// =================== FUNCIÓN PARA CARGAR EVENTOS DEL JSON ===================
-// Obtiene la lista de todos los eventos desde el archivo eventos.json.
-// Devuelve un array de objetos evento o un array vacío si hay error.
+// =================== CARGAR EVENTOS DEL JSON ===================
 async function cargarEventos() {
   try {
     const respuesta = await fetch("../DATA/Eventos/eventos.json");
     if (!respuesta.ok) throw new Error("Error cargando eventos.json");
     const data = await respuesta.json();
-    return data.eventos; // asumimos que el JSON tiene { "eventos": [...] }
+    return data.eventos;
   } catch (error) {
     console.error(error);
     return [];
   }
 }
 
-// =================== FUNCIÓN PARA INICIALIZAR AUTOCOMPLETADO ===================
-// Configura un campo de búsqueda con sugerencias de eventos en tiempo real.
-// Muestra eventos que coinciden con el texto ingresado y permite seleccionar uno.
+// =================== AUTOCOMPLETADO ===================
 async function inicializarAutocomplete() {
   const input = document.getElementById("busqueda");
   const sugerenciasDiv = document.getElementById("sugerencias");
@@ -321,6 +347,7 @@ async function inicializarAutocomplete() {
       );
       filtrados.forEach((ev) => {
         const opcion = document.createElement("div");
+        opcion.className = "sugerencias-item";
         opcion.textContent = ev.nombre;
         opcion.addEventListener("click", () => {
           input.value = ev.nombre;
@@ -335,4 +362,12 @@ async function inicializarAutocomplete() {
   });
 }
 
+// =================== INICIALIZACIÓN ===================
+let usuarios = JSON.parse(localStorage.getItem("usuariosRegistrados")) || [];
+usuarios = usuarios.map((u) => {
+  if (!u.eventos) u.eventos = [];
+  return u;
+});
+
+inicializar();
 inicializarAutocomplete();

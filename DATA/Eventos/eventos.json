@@ -14,7 +14,8 @@
       ],
       "municipalidad": "San José",
       "provincia": "San José",
-      "disponibles": 50
+      "disponibles": 50,
+      "imagen": "../IMAGES/Eventos/artisan_fair.jpg"
     },
     {
       "nombre": "Concierto Solidario",
@@ -30,7 +31,8 @@
       ],
       "municipalidad": "Alajuela",
       "provincia": "Alajuela",
-      "disponibles": 100
+      "disponibles": 100,
+      "imagen": "../IMAGES/Eventos/concierto-solidario.jpg"
     },
     {
       "nombre": "Carrera Pet Friendly",
@@ -46,7 +48,8 @@
       ],
       "municipalidad": "Cartago",
       "provincia": "Cartago",
-      "disponibles": 80
+      "disponibles": 80,
+      "imagen": "../IMG/Eventos/carrera-pet-friendly.jpg"
     },
     {
       "nombre": "Festival Gastronómico",
@@ -62,7 +65,8 @@
       ],
       "municipalidad": "Heredia",
       "provincia": "Heredia",
-      "disponibles": 60
+      "disponibles": 60,
+      "imagen": "../IMG/Eventos/festival-gastronomico.jpg"
     },
     {
       "nombre": "Feria de Mascotas",
@@ -78,7 +82,8 @@
       ],
       "municipalidad": "Desamparados",
       "provincia": "San José",
-      "disponibles": 40
+      "disponibles": 40,
+      "imagen": "../IMG/Eventos/feria-mascotas.jpg"
     },
     {
       "nombre": "Festival Deportivo Juvenil",
@@ -94,7 +99,8 @@
       ],
       "municipalidad": "Alajuela",
       "provincia": "Alajuela",
-      "disponibles": 120
+      "disponibles": 120,
+      "imagen": "../IMG/Eventos/festival-deportivo-juvenil.jpg"
     },
     {
       "nombre": "Encuentro Cultural Religioso",
@@ -110,7 +116,8 @@
       ],
       "municipalidad": "Cartago",
       "provincia": "Cartago",
-      "disponibles": 70
+      "disponibles": 70,
+      "imagen": "../IMG/Eventos/encuentro-cultural-religioso.jpg"
     }
   ]
 }

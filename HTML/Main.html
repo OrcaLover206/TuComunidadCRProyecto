@@ -3,17 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <title>Eventos de la Comunidad</title>
+    <link rel="stylesheet" href="../CSS/MainCss.css" />
   </head>
   <body>
     <nav>
-      <ul>
+      <ul class="nav-left">
         <img
           src="../Images/logoWhite.png"
           alt="Logo TuComunidadCR"
           width="30"
+          class="nav-logo"
         />
-        <p>TuComunidadCR</p>
-        <a href="#" onclick="toggleMenu()">Cuenta</a>
+        <p class="nav-title">TuComunidadCR</p>
         <ul id="menuSinCuenta" style="display: none">
           <li><a href="Index.html">Ir al Inicio</a></li>
           <li><a href="Login.html">Iniciar Sesion</a></li>
@@ -28,12 +29,17 @@
         <input id="busqueda" type="text" placeholder="Buscar..." />
         <div id="sugerencias" class="sugerencias"></div>
       </div>
+      <a href="#" onclick="toggleMenu()" class="nav-cuenta">Cuenta</a>
     </nav>
 
+    <div id="bienvenida">
+      <h1>Bienvenido a TuComunidadCR</h1>
+      <p>Descubre eventos cerca de ti y únete a la comunidad.</p>
+    </div>
     <!-- =================== BLOQUE DE EVENTOS Destacados =================== -->
+
     <h2>Eventos Destacados</h2>
     <div id="eventos-destacados"></div>
-
     <!-- =================== BLOQUE DE FILTROS =================== -->
     <h2>Filtros</h2>
     <div id="filtros-eventos">
@@ -43,15 +49,11 @@
         <select id="categorias"></select>
       </div>
 
-      <br /><br />
-
       <!-- Bloque Provincias -->
       <div id="bloque-provincias">
         <span id="label-provincias">Provincia:</span>
         <select id="provincias"></select>
       </div>
-
-      <br /><br />
 
       <!-- Bloque Municipalidades -->
       <div id="bloque-municipalidades">
