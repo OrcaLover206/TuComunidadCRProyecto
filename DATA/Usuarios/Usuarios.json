@@ -7,7 +7,8 @@
         "Correo": "carlos.ramirez@gmail.com",
         "Fecha de nacimiento": "1990-03-15",
         "username": "carlos_r",
-        "password": "carlos123"
+        "password": "carlos123",
+        "eventos": []
         },
         {
         "ID": 1002,
@@ -16,7 +17,8 @@
         "Correo": "maria.fernandez@hotmail.com",
         "Fecha de nacimiento": "1995-07-22",
         "username": "maria_f",
-        "password": "maria456"
+        "password": "maria456",
+        "eventos": []
         },
         {
         "ID": 1003,
@@ -25,7 +27,8 @@
         "Correo": "diego.solano@yahoo.com",
         "Fecha de nacimiento": "1988-11-30",
         "username": "diego_s",
-        "password": "diego789"
+        "password": "diego789",
+        "eventos": []
         },
         {
         "ID": 1004,
@@ -34,7 +37,8 @@
         "Correo": "valeria.castro@gmail.com",
         "Fecha de nacimiento": "2000-01-08",
         "username": "vale_c",
-        "password": "vale2000"
+        "password": "vale2000",
+        "eventos": []
         },
         {
         "ID": 1005,
@@ -43,7 +47,8 @@
         "Correo": "andres.mora@outlook.com",
         "Fecha de nacimiento": "1993-05-19",
         "username": "andres_m",
-        "password": "andres321"
+        "password": "andres321",
+        "eventos": []
         },
         {
         "ID": 1006,
@@ -52,7 +57,8 @@
         "Correo": "sofia.jimenez@gmail.com",
         "Fecha de nacimiento": "1997-09-03",
         "username": "sofi_j",
-        "password": "sofia654"
+        "password": "sofia654",
+        "eventos": []
         },
         {
         "ID": 1007,
@@ -61,7 +67,8 @@
         "Correo": "luis.herrera@hotmail.com",
         "Fecha de nacimiento": "1985-12-25",
         "username": "luis_h",
-        "password": "luis987"
+        "password": "luis987",
+        "eventos": []
         },
         {
         "ID": 1008,
@@ -70,7 +77,8 @@
         "Correo": "camila.vargas@gmail.com",
         "Fecha de nacimiento": "2002-04-14",
         "username": "cami_v",
-        "password": "cami2002"
+        "password": "cami2002",
+        "eventos": []
         },
         {
         "ID": 1009,
@@ -79,7 +87,8 @@
         "Correo": "roberto.quesada@yahoo.com",
         "Fecha de nacimiento": "1979-08-07",
         "username": "rober_q",
-        "password": "rober111"
+        "password": "rober111",
+        "eventos": []
         },
         {
         "ID": 1010,
@@ -88,7 +97,8 @@
         "Correo": "isabella.rojas@gmail.com",
         "Fecha de nacimiento": "1998-02-28",
         "username": "isa_r",
-        "password": "isa2024"
+        "password": "isa2024",
+        "eventos": []
         }
     ]
     }

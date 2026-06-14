@@ -120,11 +120,17 @@ function crearEventoDiv(evento) {
       if (evento.disponibles > 0) {
         registrarUsuarioEnEvento(evento, boton);
         evento.disponibles--;
-        disponibles.textContent = `Cupos disponibles: ${evento.disponibles}`;
+            // Actualizar cupos en todos los divs del mismo evento
+        document.querySelectorAll(`#btn-${evento.nombre.replace(/\s+/g, "-").toLowerCase()}`)
+        .forEach(btn => {
+          const cupoP = btn.parentElement.querySelector(".evento-meta:last-of-type");
+          if (cupoP) cupoP.textContent = `Cupos disponibles: ${evento.disponibles}`;
+        });
         let cupos = JSON.parse(localStorage.getItem("cuposEventos")) || {};
         cupos[evento.nombre] = evento.disponibles;
         localStorage.setItem("cuposEventos", JSON.stringify(cupos));
         alert("Inscripción realizada correctamente");
+        bloquearEventosRegistrados();
       } else {
         alert("No quedan cupos disponibles");
       }
@@ -132,12 +138,16 @@ function crearEventoDiv(evento) {
       alert("Registro cancelado.");
     }
   });
+
   contenido.appendChild(boton);
+  bloquearEventosRegistrados()
   div.appendChild(contenido);
 
   return div;
 }
 // =================== FUNCIÓN PRINCIPAL ===================
+
+let renderEventosComunidad = null; //variable globar para que funcione con la barra de busqueda
 async function inicializar() {
   const categoriasSelect = document.getElementById("categorias");
   const provinciasSelect = document.getElementById("provincias");
@@ -186,6 +196,43 @@ async function inicializar() {
     "../DATA/ComboBox/municipalidades.json",
   );
 
+  // =================== RENDERIZAR COMUNIDAD ===================
+  renderEventosComunidad = function() {
+    comunidadContainer.innerHTML = "";
+
+    const categoriaSeleccionada = categoriasSelect.value;
+    const provinciaSeleccionada = provinciasSelect.value;
+    const municipalidadSeleccionada = municipalidadesSelect.value;
+
+    let filtrados = dataEventos.eventos;
+    const textoBusqueda = document.getElementById("busqueda").value.toLowerCase();
+
+    if (categoriaSeleccionada) {
+      filtrados = filtrados.filter((ev) =>
+        ev.categorias.includes(categoriaSeleccionada),
+      );
+    }
+    if (provinciaSeleccionada) {
+      filtrados = filtrados.filter(
+        (ev) => ev.provincia === provinciaSeleccionada,
+      );
+    }
+    if (municipalidadSeleccionada) {
+      filtrados = filtrados.filter(
+        (ev) => ev.municipalidad === municipalidadSeleccionada,
+      );
+    }
+
+      if (textoBusqueda) {
+      filtrados = filtrados.filter(ev =>
+      ev.nombre.toLowerCase().includes(textoBusqueda)
+    );
+  }
+
+    filtrados.forEach((ev) => {
+      comunidadContainer.appendChild(crearEventoDiv(ev));
+    });
+  }
   // Cuando cambia la provincia, actualizar municipalidades
   provinciasSelect.addEventListener("change", () => {
     municipalidadesSelect.innerHTML = "";
@@ -205,7 +252,7 @@ async function inicializar() {
       });
     }
 
-    renderEventosComunidad();
+    if (renderEventosComunidad) renderEventosComunidad();
   });
 
   // Inicializar con filtros limpios
@@ -220,41 +267,9 @@ async function inicializar() {
     destacadosContainer.appendChild(crearEventoDiv(ev));
   });
 
-  // =================== RENDERIZAR COMUNIDAD ===================
-  function renderEventosComunidad() {
-    comunidadContainer.innerHTML = "";
-
-    const categoriaSeleccionada = categoriasSelect.value;
-    const provinciaSeleccionada = provinciasSelect.value;
-    const municipalidadSeleccionada = municipalidadesSelect.value;
-
-    let filtrados = dataEventos.eventos;
-
-    if (categoriaSeleccionada) {
-      filtrados = filtrados.filter((ev) =>
-        ev.categorias.includes(categoriaSeleccionada),
-      );
-    }
-    if (provinciaSeleccionada) {
-      filtrados = filtrados.filter(
-        (ev) => ev.provincia === provinciaSeleccionada,
-      );
-    }
-    if (municipalidadSeleccionada) {
-      filtrados = filtrados.filter(
-        (ev) => ev.municipalidad === municipalidadSeleccionada,
-      );
-    }
-
-    filtrados.forEach((ev) => {
-      comunidadContainer.appendChild(crearEventoDiv(ev));
-    });
-  }
-
   categoriasSelect.addEventListener("change", renderEventosComunidad);
   municipalidadesSelect.addEventListener("change", renderEventosComunidad);
-
-  bloquearEventosRegistrados();
+    bloquearEventosRegistrados();
 }
 
 // =================== MENÚ Y LOGOUT ===================
@@ -306,14 +321,12 @@ function bloquearEventosRegistrados() {
   const usuarioActivo = JSON.parse(localStorage.getItem("usuarioActivo"));
   if (!usuarioActivo || !usuarioActivo.eventos) return;
 
-  usuarioActivo.eventos.forEach((e) => {
-    const boton = document.getElementById(
-      `btn-${e.nombre.replace(/\s+/g, "-").toLowerCase()}`,
-    );
-    if (boton) {
+usuarioActivo.eventos.forEach((e) => {
+    const botonid = `btn-${e.nombre.replace(/\s+/g, "-").toLowerCase()}`;
+    document.querySelectorAll(`#${botonid}`).forEach(boton => {
       boton.textContent = "Registrado";
       boton.disabled = true;
-    }
+    });
   });
 }
 
@@ -352,12 +365,14 @@ async function inicializarAutocomplete() {
         opcion.addEventListener("click", () => {
           input.value = ev.nombre;
           sugerenciasDiv.style.display = "none";
+          if (renderEventosComunidad) renderEventosComunidad();
         });
         sugerenciasDiv.appendChild(opcion);
       });
       sugerenciasDiv.style.display = filtrados.length ? "block" : "none";
     } else {
       sugerenciasDiv.style.display = "none";
+      if (renderEventosComunidad) renderEventosComunidad();
     }
   });
 }
