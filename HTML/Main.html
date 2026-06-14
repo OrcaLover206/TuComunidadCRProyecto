@@ -12,7 +12,6 @@
         <img
           src="../IMAGES/logoGREY.jpeg"
           alt="Logo TuComunidadCR"
-          width="30"
           class="nav-logo"
         />
         <p class="nav-title">TuComunidadCR</p>
@@ -26,10 +25,18 @@
           <li><a href="#" onclick="confirmLogout()">Salir</a></li>
         </ul>
       </ul>
-      <div class="autocomplete">
+
+      <div class="autocomplete" id="autocomplete-container">
+        <img
+          src="https://cdn-icons-png.flaticon.com/512/54/54481.png"
+          alt="Buscar"
+          id="search-icon"
+          onclick="toggleSearch()"
+        />
         <input id="busqueda" type="text" placeholder="Buscar..." />
         <div id="sugerencias" class="sugerencias"></div>
       </div>
+
       <a href="#" onclick="toggleMenu()" class="nav-cuenta">Cuenta</a>
     </nav>
 

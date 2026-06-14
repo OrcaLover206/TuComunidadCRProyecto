@@ -12,16 +12,17 @@ async function cargarJSON(ruta) {
 
 function obtenerClaseCategoria(categoria) {
   const categoriaLower = categoria.toLowerCase();
-  if (categoriaLower.includes("deport"))   return "categoria-deportes";
-  if (categoriaLower.includes("venta"))    return "categoria-ventas";
-  if (categoriaLower.includes("actividad"))return "categoria-actividades";
+  if (categoriaLower.includes("deport")) return "categoria-deportes";
+  if (categoriaLower.includes("venta")) return "categoria-ventas";
+  if (categoriaLower.includes("actividad")) return "categoria-actividades";
   if (categoriaLower.includes("religios")) return "categoria-religioso";
-  if (categoriaLower.includes("pet"))      return "categoria-pet";
-  if (categoriaLower.includes("cultura"))  return "categoria-cultura";
-  if (categoriaLower.includes("arte"))     return "categoria-arte";
-  if (categoriaLower.includes("música") || categoriaLower.includes("musica")) return "categoria-musica";
-  if (categoriaLower.includes("educaci"))  return "categoria-educacion";
-  if (categoriaLower.includes("social"))   return "categoria-social";
+  if (categoriaLower.includes("pet")) return "categoria-pet";
+  if (categoriaLower.includes("cultura")) return "categoria-cultura";
+  if (categoriaLower.includes("arte")) return "categoria-arte";
+  if (categoriaLower.includes("música") || categoriaLower.includes("musica"))
+    return "categoria-musica";
+  if (categoriaLower.includes("educaci")) return "categoria-educacion";
+  if (categoriaLower.includes("social")) return "categoria-social";
   if (categoriaLower.includes("tecnolog")) return "categoria-tecnologia";
   return "categoria-default";
 }
@@ -120,12 +121,18 @@ function crearEventoDiv(evento) {
       if (evento.disponibles > 0) {
         registrarUsuarioEnEvento(evento, boton);
         evento.disponibles--;
-            // Actualizar cupos en todos los divs del mismo evento
-        document.querySelectorAll(`#btn-${evento.nombre.replace(/\s+/g, "-").toLowerCase()}`)
-        .forEach(btn => {
-          const cupoP = btn.parentElement.querySelector(".evento-meta:last-of-type");
-          if (cupoP) cupoP.textContent = `Cupos disponibles: ${evento.disponibles}`;
-        });
+        // Actualizar cupos en todos los divs del mismo evento
+        document
+          .querySelectorAll(
+            `#btn-${evento.nombre.replace(/\s+/g, "-").toLowerCase()}`,
+          )
+          .forEach((btn) => {
+            const cupoP = btn.parentElement.querySelector(
+              ".evento-meta:last-of-type",
+            );
+            if (cupoP)
+              cupoP.textContent = `Cupos disponibles: ${evento.disponibles}`;
+          });
         let cupos = JSON.parse(localStorage.getItem("cuposEventos")) || {};
         cupos[evento.nombre] = evento.disponibles;
         localStorage.setItem("cuposEventos", JSON.stringify(cupos));
@@ -140,7 +147,7 @@ function crearEventoDiv(evento) {
   });
 
   contenido.appendChild(boton);
-  bloquearEventosRegistrados()
+  bloquearEventosRegistrados();
   div.appendChild(contenido);
 
   return div;
@@ -197,7 +204,7 @@ async function inicializar() {
   );
 
   // =================== RENDERIZAR COMUNIDAD ===================
-  renderEventosComunidad = function() {
+  renderEventosComunidad = function () {
     comunidadContainer.innerHTML = "";
 
     const categoriaSeleccionada = categoriasSelect.value;
@@ -205,7 +212,9 @@ async function inicializar() {
     const municipalidadSeleccionada = municipalidadesSelect.value;
 
     let filtrados = dataEventos.eventos;
-    const textoBusqueda = document.getElementById("busqueda").value.toLowerCase();
+    const textoBusqueda = document
+      .getElementById("busqueda")
+      .value.toLowerCase();
 
     if (categoriaSeleccionada) {
       filtrados = filtrados.filter((ev) =>
@@ -223,16 +232,16 @@ async function inicializar() {
       );
     }
 
-      if (textoBusqueda) {
-      filtrados = filtrados.filter(ev =>
-      ev.nombre.toLowerCase().includes(textoBusqueda)
-    );
-  }
+    if (textoBusqueda) {
+      filtrados = filtrados.filter((ev) =>
+        ev.nombre.toLowerCase().includes(textoBusqueda),
+      );
+    }
 
     filtrados.forEach((ev) => {
       comunidadContainer.appendChild(crearEventoDiv(ev));
     });
-  }
+  };
   // Cuando cambia la provincia, actualizar municipalidades
   provinciasSelect.addEventListener("change", () => {
     municipalidadesSelect.innerHTML = "";
@@ -269,7 +278,7 @@ async function inicializar() {
 
   categoriasSelect.addEventListener("change", renderEventosComunidad);
   municipalidadesSelect.addEventListener("change", renderEventosComunidad);
-    bloquearEventosRegistrados();
+  bloquearEventosRegistrados();
 }
 
 // =================== MENÚ Y LOGOUT ===================
@@ -321,9 +330,9 @@ function bloquearEventosRegistrados() {
   const usuarioActivo = JSON.parse(localStorage.getItem("usuarioActivo"));
   if (!usuarioActivo || !usuarioActivo.eventos) return;
 
-usuarioActivo.eventos.forEach((e) => {
+  usuarioActivo.eventos.forEach((e) => {
     const botonid = `btn-${e.nombre.replace(/\s+/g, "-").toLowerCase()}`;
-    document.querySelectorAll(`#${botonid}`).forEach(boton => {
+    document.querySelectorAll(`#${botonid}`).forEach((boton) => {
       boton.textContent = "Registrado";
       boton.disabled = true;
     });
@@ -376,6 +385,20 @@ async function inicializarAutocomplete() {
     }
   });
 }
+
+function toggleSearch() {
+  const input = document.getElementById("busqueda");
+  const abierto = input.classList.toggle("search-visible");
+  if (abierto) input.focus();
+}
+
+document.addEventListener("click", (e) => {
+  const container = document.getElementById("autocomplete-container");
+  if (!container.contains(e.target)) {
+    document.getElementById("busqueda").classList.remove("search-visible");
+    document.getElementById("sugerencias").style.display = "none";
+  }
+});
 
 // =================== INICIALIZACIÓN ===================
 let usuarios = JSON.parse(localStorage.getItem("usuariosRegistrados")) || [];

@@ -133,16 +133,58 @@ nav {
   font-size: 1rem;
 }
 
+/* ===== BARRA DE BÚSQUEDA ===== */
+.autocomplete {
+  display: flex;
+  align-items: center;
+  position: relative;
+  margin-left: auto;
+  margin-right: 20px;
+  gap: 8px;
+}
+
+#search-icon {
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  opacity: 0.5;
+  transition: opacity 0.2s ease;
+  flex-shrink: 0;
+  padding: 10px;
+  box-sizing: content-box;
+}
+
+#search-icon:hover {
+  opacity: 1;
+}
+
+#busqueda {
+  display: none;
+  padding: 10px 16px;
+  width: 260px;
+  font-size: 1rem;
+}
+
+#busqueda.search-visible {
+  display: block;
+}
+
+#busqueda:focus {
+  outline: none;
+  border-color: #2bbfbf;
+}
+
 .sugerencias {
   position: absolute;
-  top: 100%;
-  left: 0;
+  top: 110%;
+  right: 0;
   background-color: white;
-  border-radius: 4px;
+  border-radius: 8px;
   max-height: 200px;
   overflow-y: auto;
   z-index: 101;
-  width: 300px;
+  width: 260px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .sugerencias-item {
@@ -153,7 +195,6 @@ nav {
 .sugerencias-item:hover {
   background-color: #f0f0f0;
 }
-
 /* ===== SECCIÓN BIENVENIDA ===== */
 #bienvenida {
   position: relative;
@@ -487,11 +528,6 @@ footer p {
     margin: 70px 12px;
   }
 
-  /* Ocultar barra de búsqueda en tablet */
-  .autocomplete {
-    display: none;
-  }
-
   nav {
     padding: 12px 16px;
   }
@@ -500,7 +536,42 @@ footer p {
     font-size: 1rem;
   }
 
-  /* Bienvenida más compacta */
+  /* Área de toque más grande en móvil */
+  #search-icon {
+    width: 26px;
+    height: 26px;
+    padding: 14px;
+    opacity: 0.6;
+  }
+
+  /* Input desplegado ocupa todo el ancho debajo del nav */
+  #busqueda.search-visible {
+    display: block;
+    position: fixed;
+    top: 80px;
+    left: 0;
+    right: 0;
+    width: 100%;
+    border-radius: 0;
+    border: none;
+    border-bottom: 2px solid #757979;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    padding: 16px 20px;
+    font-size: 1rem;
+    z-index: 99;
+    background-color: white;
+    font-family: Raleway, sans-serif;
+  }
+
+  .sugerencias {
+    position: fixed;
+    top: 108px;
+    left: 0;
+    right: 0;
+    width: 100%;
+    border-radius: 0 0 8px 8px;
+  }
+
   #bienvenida {
     padding: 80px 20px;
   }
@@ -517,7 +588,6 @@ footer p {
     bottom: 14px;
   }
 
-  /* Destacados en columna */
   #eventos-destacados {
     flex-direction: column;
     align-items: center;
@@ -528,14 +598,12 @@ footer p {
     max-width: 400px;
   }
 
-  /* Comunidad: imagen más pequeña */
   #eventos-comunidad .evento-imagen {
     width: 120px;
     min-width: 120px;
     height: 120px;
   }
 
-  /* Filtros en columna */
   #filtros-eventos {
     flex-direction: column;
     align-items: stretch;
@@ -567,6 +635,12 @@ footer p {
     min-width: 140px;
   }
 
+  #search-icon {
+    width: 24px;
+    height: 24px;
+    padding: 16px;
+  }
+
   #bienvenida {
     padding: 60px 16px;
   }
@@ -581,7 +655,6 @@ footer p {
     bottom: 12px;
   }
 
-  /* Comunidad: layout vertical en móvil */
   #eventos-comunidad .evento {
     flex-direction: column;
     padding: 12px;
