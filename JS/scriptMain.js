@@ -238,10 +238,20 @@ async function inicializar() {
       );
     }
 
+    if (filtrados.length !== 0 ){
     filtrados.forEach((ev) => {
       comunidadContainer.appendChild(crearEventoDiv(ev));
     });
-  };
+  }else{
+      const msg = document.createElement("p");
+      const msg2 = document.createElement("p")
+    msg.textContent = "No existen eventos que cumplan con esas características buscadas.";
+    msg2.textContent = "Por favor escoja otro filtro o elimine la busqueda de la barra de busqueda"
+    comunidadContainer.appendChild(msg);
+    comunidadContainer.appendChild(msg2);
+  }
+};
+
   // Cuando cambia la provincia, actualizar municipalidades
   provinciasSelect.addEventListener("change", () => {
     municipalidadesSelect.innerHTML = "";

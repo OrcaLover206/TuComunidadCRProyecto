@@ -264,6 +264,13 @@ main button:hover {
   background-color: #2d9bae;
 }
 
+/*===== MOSTRAR ERRORES =====*/
+span[id$="Error"] {
+  color: #ff4d4d;
+  font-size: 0.85rem;
+  display: block;
+}
+
 /* ===== FOOTER ===== */
 footer {
   display: flex;
