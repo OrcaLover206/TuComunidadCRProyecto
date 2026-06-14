@@ -6,7 +6,7 @@
 }
 
 html {
-  font-family: raeway, sans-serif;
+  font-family: Raleway, sans-serif;
   background-color: #f5f5f5;
 }
 
@@ -21,14 +21,15 @@ nav {
   left: 0;
   right: 0;
   width: 100%;
-  background-color: #2c3e50;
-  color: white;
+  background-color: white;
+  color: #333;
   padding: 15px 30px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   z-index: 100;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .nav-left {
@@ -50,43 +51,21 @@ nav {
   margin: 0;
 }
 
-/* ===== BARRA DE BÚSQUEDA ===== */
-.autocomplete {
-  display: flex;
-  align-items: center;
-  position: relative;
-  margin-left: auto;
-  margin-right: 20px;
-}
-
-.autocomplete input {
-  padding: 12px 16px;
-  border: none;
-  border-radius: 25px;
-  width: 300px;
-  font-size: 1rem;
-}
-
-.sugerencias {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background-color: white;
-  border-radius: 4px;
-  max-height: 200px;
-  overflow-y: auto;
-  z-index: 101;
-  width: 300px;
-}
-
-.sugerencias-item {
-  padding: 8px 12px;
+/* ===== BOTÓN CUENTA ===== */
+.nav-cuenta {
+  background-color: #4caf50;
+  color: white;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: bold;
   cursor: pointer;
-  color: #333;
+  padding: 8px 18px;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
 }
 
-.sugerencias-item:hover {
-  background-color: #f0f0f0;
+.nav-cuenta:hover {
+  background-color: #45a049;
 }
 
 /* ===== MENÚS DESPLEGABLES ===== */
@@ -96,12 +75,13 @@ nav {
   top: 65px;
   right: 30px;
   background-color: #2c3e50;
-  border-radius: 4px;
+  border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   padding: 0;
   list-style: none;
-  min-width: 150px;
+  min-width: 160px;
   z-index: 101;
+  overflow: hidden;
 }
 
 #menuSinCuenta li,
@@ -124,28 +104,54 @@ nav {
   background-color: #4caf50;
 }
 
-#menuSinCuenta li:first-child a,
-#submenu li:first-child a {
-  border-radius: 4px 4px 0 0;
-}
-
-#menuSinCuenta li:last-child a,
+/* Solo el último ítem (Salir) tiene fondo rojo */
 #submenu li:last-child a {
-  border-radius: 0 0 4px 4px;
+  background-color: #e53935;
 }
 
-/* ===== BOTÓN CUENTA ===== */
-.nav-cuenta {
-  color: white;
-  text-decoration: none;
+#submenu li:last-child a:hover {
+  background-color: #b71c1c;
+}
+
+/* ===== BARRA DE BÚSQUEDA ===== */
+.autocomplete {
+  display: flex;
+  align-items: center;
+  position: relative;
+  margin-left: auto;
+  margin-right: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 25px;
+  border: 1px solid #27272c5a;
+}
+
+.autocomplete input {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 25px;
+  width: 300px;
   font-size: 1rem;
-  font-weight: bold;
-  cursor: pointer;
-  transition: color 0.3s ease;
 }
 
-.nav-cuenta:hover {
-  color: #4caf50;
+.sugerencias {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: white;
+  border-radius: 4px;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 101;
+  width: 300px;
+}
+
+.sugerencias-item {
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.sugerencias-item:hover {
+  background-color: #f0f0f0;
 }
 
 /* ===== SECCIÓN BIENVENIDA ===== */
@@ -159,14 +165,12 @@ nav {
   background-repeat: no-repeat;
   padding: 120px;
   border-radius: 25px;
-  padding-left: 150px;
+  margin-bottom: 40px;
 }
 
 #bienvenida h1 {
   font-size: 2.5rem;
   color: white;
-  margin: 0;
-  font-family: raeway, sans-serif;
   position: absolute;
   bottom: 60px;
   left: 25px;
@@ -175,7 +179,6 @@ nav {
 #bienvenida p {
   font-size: 1.2rem;
   color: white;
-  font-family: raeway, sans-serif;
   position: absolute;
   bottom: 20px;
   left: 25px;
@@ -213,7 +216,6 @@ nav {
   align-items: stretch;
   padding: 0;
   border-radius: 16px;
-  gap: 0;
 }
 
 #eventos-destacados .evento-imagen {
@@ -222,7 +224,6 @@ nav {
   min-width: unset;
   object-fit: cover;
   border-radius: 0;
-  align-self: unset;
 }
 
 #eventos-destacados .evento-contenido {
@@ -259,7 +260,7 @@ nav {
   gap: 8px;
 }
 
-/* ===== FILA SUPERIOR: título + categorías ===== */
+/* ===== CONTENIDO DE CADA EVENTO ===== */
 .evento-fila-superior {
   display: flex;
   flex-direction: column;
@@ -273,7 +274,6 @@ nav {
   margin: 0;
 }
 
-/* ===== CATEGORÍAS: píldoras con texto y color por tipo ===== */
 .evento-categorias {
   display: flex;
   flex-direction: row;
@@ -281,6 +281,49 @@ nav {
   flex-wrap: wrap;
 }
 
+.evento-descripcion {
+  font-size: 0.88rem;
+  color: #555;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.evento-meta {
+  font-size: 0.88rem;
+  color: #444;
+  margin: 0;
+}
+
+.evento-meta strong {
+  color: #222;
+}
+
+/* ===== BOTÓN REGISTRO ===== */
+.evento-contenido button {
+  margin-top: auto;
+  background-color: #2bbfbf;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+  transition: background-color 0.3s ease;
+  width: 100%;
+}
+
+.evento-contenido button:hover {
+  background-color: #22a0a0;
+}
+
+.evento-contenido button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+/* ===== CATEGORÍAS ===== */
 .categoria-deportes,
 .categoria-ventas,
 .categoria-actividades,
@@ -339,46 +382,220 @@ nav {
   background-color: #9e9e9e;
 }
 
-/* ===== DESCRIPCIÓN ===== */
-.evento-descripcion {
-  font-size: 0.88rem;
-  color: #555;
-  line-height: 1.5;
-  margin: 0;
+/* ===== FILTROS ===== */
+#filtros {
+  background-color: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin: 40px 0;
 }
 
-/* ===== METADATOS: Fecha, Dirección, Cupos ===== */
-.evento-meta {
-  font-size: 0.88rem;
-  color: #444;
-  margin: 0;
+#filtros-eventos {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: center;
 }
 
-.evento-meta strong {
-  color: #222;
+#bloque-categorias,
+#bloque-provincias,
+#bloque-municipalidades {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
 }
 
-/* ===== BOTÓN REGISTRO ===== */
-.evento-contenido button {
-  margin-top: auto;
-  background-color: #2bbfbf;
-  color: white;
-  border: none;
-  padding: 12px;
-  border-radius: 8px;
-  cursor: pointer;
+#bloque-categorias span,
+#bloque-provincias span,
+#bloque-municipalidades span {
+  font-size: 0.85rem;
   font-weight: bold;
-  font-size: 0.9rem;
-  letter-spacing: 1px;
-  transition: background-color 0.3s ease;
+  color: #444;
+}
+
+#bloque-categorias select,
+#bloque-provincias select,
+#bloque-municipalidades select {
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  background-color: #f9f9f9;
+  cursor: pointer;
   width: 100%;
 }
 
-.evento-contenido button:hover {
-  background-color: #22a0a0;
+#bloque-categorias select:focus,
+#bloque-provincias select:focus,
+#bloque-municipalidades select:focus {
+  outline: none;
+  border-color: #2bbfbf;
 }
 
-.evento-contenido button:disabled {
-  background-color: #cccccc;
-  cursor: not-allowed;
+/* ===== FOOTER ===== */
+footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 40px 20px;
+  background-color: #f5f5f5;
+  margin-top: 60px;
+}
+
+footer img {
+  width: 40px;
+  height: auto;
+}
+
+footer ul {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+footer ul li {
+  font-size: 0.95rem;
+  color: #444;
+  cursor: pointer;
+}
+
+footer ul li:hover {
+  color: #2bbfbf;
+}
+
+footer hr {
+  width: 100%;
+  border: none;
+  border-top: 1px solid #ddd;
+}
+
+footer p {
+  font-size: 0.85rem;
+  color: #888;
+  margin: 0;
+}
+
+/* ===== RESPONSIVE TABLET (max 768px) ===== */
+@media (max-width: 768px) {
+  body {
+    margin: 70px 12px;
+  }
+
+  /* Ocultar barra de búsqueda en tablet */
+  .autocomplete {
+    display: none;
+  }
+
+  nav {
+    padding: 12px 16px;
+  }
+
+  .nav-title {
+    font-size: 1rem;
+  }
+
+  /* Bienvenida más compacta */
+  #bienvenida {
+    padding: 80px 20px;
+  }
+
+  #bienvenida h1 {
+    font-size: 1.8rem;
+    left: 16px;
+    bottom: 40px;
+  }
+
+  #bienvenida p {
+    font-size: 1rem;
+    left: 16px;
+    bottom: 14px;
+  }
+
+  /* Destacados en columna */
+  #eventos-destacados {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #eventos-destacados .evento {
+    width: 100%;
+    max-width: 400px;
+  }
+
+  /* Comunidad: imagen más pequeña */
+  #eventos-comunidad .evento-imagen {
+    width: 120px;
+    min-width: 120px;
+    height: 120px;
+  }
+
+  /* Filtros en columna */
+  #filtros-eventos {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+/* ===== RESPONSIVE MÓVIL (max 480px) ===== */
+@media (max-width: 480px) {
+  body {
+    margin: 65px 10px;
+  }
+
+  .nav-title {
+    font-size: 0.9rem;
+  }
+
+  .nav-logo {
+    width: 28px;
+  }
+
+  .nav-cuenta {
+    font-size: 0.8rem;
+    padding: 6px 12px;
+  }
+
+  #menuSinCuenta,
+  #submenu {
+    right: 10px;
+    min-width: 140px;
+  }
+
+  #bienvenida {
+    padding: 60px 16px;
+  }
+
+  #bienvenida h1 {
+    font-size: 1.4rem;
+    bottom: 36px;
+  }
+
+  #bienvenida p {
+    font-size: 0.9rem;
+    bottom: 12px;
+  }
+
+  /* Comunidad: layout vertical en móvil */
+  #eventos-comunidad .evento {
+    flex-direction: column;
+    padding: 12px;
+  }
+
+  #eventos-comunidad .evento-imagen {
+    width: 100%;
+    min-width: unset;
+    height: 160px;
+    border-radius: 8px;
+  }
+
+  .evento-contenido button {
+    padding: 10px;
+    font-size: 0.85rem;
+  }
 }

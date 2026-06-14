@@ -47,7 +47,7 @@ main {
   flex-direction: column;
   justify-content: center;
   padding: 5rem;
-  gap: 2.5rem; /* CAMBIADO: de 5rem a 2.5rem para espaciado uniforme */
+  gap: 2.5rem;
   max-width: 600px;
   width: 100%;
   margin-left: -2rem;
@@ -59,7 +59,7 @@ main {
   align-items: flex-end;
   gap: 25px;
   margin-bottom: 0;
-  margin-top: -1.5rem; /* AGREGADO: sube el logo */
+  margin-top: -1.5rem;
 }
 
 /* ===== LOGO IMAGEN ===== */
@@ -70,11 +70,10 @@ main {
 
 /* ===== TEXTO DEL LOGO ===== */
 #logo-text {
-  color: white;
+  color: rgb(255, 255, 255);
   font-size: 2rem;
   font-weight: bold;
   font-family: Raleway, sans-serif;
-  margin-bottom: -6px; /* AGREGADO: compensa el espacio vacío del PNG */
 }
 
 /* ===== TÍTULO PRINCIPAL ===== */
@@ -287,22 +286,22 @@ button {
 /* Estilos para mensajes con respecto a la validación */
 /* ======================================================== */
 .global-message {
-    margin-top: 10px;
-    padding: 10px;
-    border-radius: 4px;
-    font-size: 0.95rem;
-    text-align:center;
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  text-align: center;
 }
 
 /* Clase por si el login falla por completo */
 .error-box {
-    color: #ffcccc;
-    border: 1px solid #ffcccc;
+  color: #ffcccc;
+  border: 1px solid #ffcccc;
 }
 
 /*clase por si el login es correcto al 100% */
 .exito-box {
-    background-color: #e6ffe6;
-    color: #006600;
-    border: 1px solid #ccffcc;
+  background-color: #e6ffe6;
+  color: #006600;
+  border: 1px solid #ccffcc;
 }
