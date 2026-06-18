@@ -387,6 +387,7 @@ async function inicializarAutocomplete() {
           if (renderEventosComunidad) renderEventosComunidad();
         });
         sugerenciasDiv.appendChild(opcion);
+
       });
       sugerenciasDiv.style.display = filtrados.length ? "block" : "none";
     } else {

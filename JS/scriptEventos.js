@@ -1,14 +1,3 @@
-// =================== FUNCIÓN PARA CARGAR JSON ===================
-// Carga un archivo JSON desde la ruta indicada y devuelve su contenido.
-async function cargarJSON(ruta) {
-  const respuesta = await fetch(ruta);
-  if (!respuesta.ok) {
-    console.error("Error cargando:", ruta);
-    return null;
-  }
-  return await respuesta.json();
-}
-
 document.addEventListener("DOMContentLoaded", () => {
   cargarMisEventos();
 });
@@ -91,6 +80,7 @@ function eliminarRegistro(evento, div) {
     div.remove();
 
     alert("Inscripcion eliminada con exito, si deseara volver a inscribirse, regrese a la pagina de eventos")
+    cargarMisEventos();
   }else{
     alert(`No se cancelo su inscripcion de ${evento.nombre}`)
   }
