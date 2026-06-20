@@ -49,12 +49,15 @@
             <span id="SignEmailError" class="error-message"></span>
           </div>
 
+          <!--buscar como poner el maximo como fecha actual -->
           <!-- Fecha de nacimiento -->
           <div class="form-group">
             <label for="birthdate-input">Fecha de nacimiento</label>
             <input
               id="birthdate-input"
               type="date"
+              min="1900-01-01"
+              max="2026-06-01" 
               name="fecha_nacimiento"
               required
             />

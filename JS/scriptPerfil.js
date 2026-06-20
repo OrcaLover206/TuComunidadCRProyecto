@@ -1,89 +1,86 @@
-// =================== BARRA DE BÚSQUEDA ===================
-function toggleSearch() {
-  const input = document.getElementById("busqueda");
-  const abierto = input.classList.toggle("search-visible");
-  if (abierto) input.focus();
-}
+// campos del forms agrupados en una sola zona para reutilizarlos
+const Id = document.getElementById("Id")
+const nombre = document.getElementById("nombre")
+const email = document.getElementById("email")
+const telefono = getElementById("telefono")
+const formPerfil = getElementById("formPerfil")
+const btnEditar =  document.getElementById("btnEditar")
+const nombreError = document.getElementById("nombreError")
+const telefonoError =document.getElementById("telefonoError")
+const emailError = document.getElementById("emailError")
 
-document.addEventListener("click", (e) => {
-  const container = document.getElementById("autocomplete-container");
-  if (!container.contains(e.target)) {
-    document.getElementById("busqueda").classList.remove("search-visible");
-    document.getElementById("sugerencias").style.display = "none";
-  }
-});
+
+
+
 
 // =================== CARGAR DATOS DEL PERFIL ===================
 function cargarDatosPerfil() {
   const usuarioActivo = JSON.parse(localStorage.getItem('usuarioActivo'));
   if (!usuarioActivo) {
+    alert("No se encontro una sesion activa, redirigiendo a login")
     window.location.href = 'Login.html';
     return;
   }
 
-  document.getElementById("Id").value = usuarioActivo.id || usuarioActivo.ID || '';
-  document.getElementById("nombre").value = usuarioActivo.nombre || usuarioActivo.Nombre || '';
-  document.getElementById("email").value = usuarioActivo.email || usuarioActivo.Correo || '';
-  document.getElementById("telefono").value = usuarioActivo.telefono || usuarioActivo.Telefono || '';
+  id.value = usuarioActivo.id || usuarioActivo.ID || '';
+  nombre.value = usuarioActivo.nombre || usuarioActivo.Nombre || '';
+  email.value = usuarioActivo.email || usuarioActivo.Correo || '';
+  telefono.value = usuarioActivo.telefono || usuarioActivo.Telefono || '';
 
   // Campos bloqueados por defecto
   deshabilitarCampos();
 }
 
 function deshabilitarCampos() {
-  document.getElementById("nombre").disabled = true;
-  document.getElementById("email").disabled = true;
-  document.getElementById("telefono").disabled = true;
-  document.getElementById("Id").disabled = true; // siempre bloqueado
+  nombre.disabled = true;
+  email.disabled = true;
+  telefono.disabled = true;
+  Id.disabled = true; // siempre bloqueado
 }
 
 function habilitarCampos() {
-  document.getElementById("nombre").disabled = false;
-  document.getElementById("email").disabled = false;
-  document.getElementById("telefono").disabled = false;
+  nombre.disabled = false;
+  email.disabled = false;
+  telefono.disabled = false;
 }
 
 // =================== VALIDACIONES EN TIEMPO REAL ===================
 document.addEventListener('DOMContentLoaded', () => {
   cargarDatosPerfil();
 
-  document.getElementById("nombre").addEventListener('input', () => {
-    const val = document.getElementById("nombre").value.trim();
-    const err = document.getElementById("nombreError");
+  nombre.addEventListener('input', () => {
+    const val = nombre.value.trim();
+    const err = nombreError;
     err.textContent = val === '' ? 'El nombre es obligatorio.' : '';
   });
 
-  document.getElementById("telefono").addEventListener('input', () => {
-    const val = document.getElementById("telefono").value.trim();
-    const err = document.getElementById("telefonoError");
+  telefono.addEventListener('input', () => {
+    const val = telefono.value.trim();
+    const err = telefonoError;
     if (val === '') err.textContent = 'El teléfono es obligatorio.';
     else if (!/^\d{8}$/.test(val)) err.textContent = 'Debe tener exactamente 8 dígitos.';
     else err.textContent = '';
   });
 
-  document.getElementById("email").addEventListener('input', () => {
-    const val = document.getElementById("email").value.trim();
-    const err = document.getElementById("emailError");
+  email.addEventListener('input', () => {
+    const val = email.value.trim();
+    const err = emailError;
     if (val === '') err.textContent = 'El correo es obligatorio.';
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) err.textContent = 'Formato de correo inválido.';
     else err.textContent = '';
   });
 
   // Botón editar
-  document.getElementById("btnEditar").addEventListener('click', () => {
+  btnEditar.addEventListener('click', () => {
     habilitarCampos();
   });
 
   // Guardar cambios
-  document.getElementById("formPerfil").addEventListener('submit', (e) => {
+  formPerfil.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    const nombre = document.getElementById("nombre").value.trim();
-    const email = document.getElementById("email").value.trim();
-    const telefono = document.getElementById("telefono").value.trim();
-
     // Validar antes de guardar
-    if (nombre === '' || email === '' || telefono === '') {
+    if (nombre.value.trim() === '' || email.value.trim === '' || telefono.value.trim() === '') {
       alert('Por favor rellene todos los campos.');
       return;
     }
