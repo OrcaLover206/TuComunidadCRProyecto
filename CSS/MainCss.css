@@ -199,7 +199,7 @@ nav {
   position: relative;
   background-image:
     linear-gradient(rgba(0, 0, 0, 0.592), rgba(0, 0, 0, 0.188)),
-    url("../Images/fondoBienvenida.jpg");
+    url("../IMAGES/fondoBienvenida.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

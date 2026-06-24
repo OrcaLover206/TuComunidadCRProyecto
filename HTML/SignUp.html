@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TuComunidadCR | Sign Up</title>
-    <link rel="stylesheet" href="../Css/SignUp.css" />
+    <link rel="stylesheet" href="../CSS/SignUp.css" />
   </head>
   <body>
     <main>
@@ -14,7 +14,7 @@
         <div id="logo-container">
           <img
             id="logo-img"
-            src="../Images/logoWhite.png"
+            src="../IMAGES/logoWhite.png"
             alt="Logo TuComunidadCR"
             width="50"
           />
@@ -27,7 +27,7 @@
         </h1>
 
         <!-- Formulario de registro -->
-        <form id="login-form" action="Main.html" method="post">
+        <form id="login-form" action="./Main.html" method="post">
           <!-- Nombre -->
           <div class="form-group">
             <label for="name-input">Nombre</label>
@@ -57,7 +57,7 @@
               id="birthdate-input"
               type="date"
               min="1900-01-01"
-              max="2026-06-01" 
+              max="2026-06-01"
               name="fecha_nacimiento"
               required
             />
@@ -92,7 +92,7 @@
             <button
               id="register-btn"
               type="button"
-              onclick="location.href = 'LogIn.html'"
+              onclick="location.href = './Login.html'"
             >
               Iniciar Sesión
             </button>
@@ -100,6 +100,6 @@
         </form>
       </section>
     </main>
-    <Script src="../JS/scriptSign.js"></Script>
+    <script src="../JS/scriptSign.js"></script>
   </body>
 </html>

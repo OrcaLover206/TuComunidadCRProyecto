@@ -1,31 +1,27 @@
 // campos del forms agrupados en una sola zona para reutilizarlos
-const Id = document.getElementById("Id")
-const nombre = document.getElementById("nombre")
-const email = document.getElementById("email")
-const telefono = document.getElementById("telefono")
-const formPerfil = document.getElementById("formPerfil")
-const btnEditar =  document.getElementById("btnEditar")
-const nombreError = document.getElementById("nombreError")
-const telefonoError =document.getElementById("telefonoError")
-const emailError = document.getElementById("emailError")
-
-
-
-
+const Id = document.getElementById("Id");
+const nombre = document.getElementById("nombre");
+const email = document.getElementById("email");
+const telefono = document.getElementById("telefono");
+const formPerfil = document.getElementById("formPerfil");
+const btnEditar = document.getElementById("btnEditar");
+const nombreError = document.getElementById("nombreError");
+const telefonoError = document.getElementById("telefonoError");
+const emailError = document.getElementById("emailError");
 
 // =================== CARGAR DATOS DEL PERFIL ===================
 function cargarDatosPerfil() {
-  const usuarioActivo = JSON.parse(sessionStorage.getItem('usuarioActivo'));
+  const usuarioActivo = JSON.parse(sessionStorage.getItem("usuarioActivo"));
   if (!usuarioActivo) {
-    alert("No se encontro una sesion activa, redirigiendo a login")
-    window.location.href = 'Login.html';
+    alert("No se encontro una sesion activa, redirigiendo a login");
+    window.location.href = "./Login.html";
     return;
   }
 
-  Id.value = usuarioActivo.id || usuarioActivo.ID || '';
-  nombre.value = usuarioActivo.nombre || usuarioActivo.Nombre || '';
-  email.value = usuarioActivo.email || usuarioActivo.Correo || '';
-  telefono.value = usuarioActivo.telefono || usuarioActivo.Telefono || '';
+  Id.value = usuarioActivo.id || usuarioActivo.ID || "";
+  nombre.value = usuarioActivo.nombre || usuarioActivo.Nombre || "";
+  email.value = usuarioActivo.email || usuarioActivo.Correo || "";
+  telefono.value = usuarioActivo.telefono || usuarioActivo.Telefono || "";
 
   // Campos bloqueados por defecto
   deshabilitarCampos();
@@ -45,69 +41,76 @@ function habilitarCampos() {
 }
 
 // =================== VALIDACIONES EN TIEMPO REAL ===================
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
   cargarDatosPerfil();
 
-  nombre.addEventListener('input', () => {
+  nombre.addEventListener("input", () => {
     const val = nombre.value.trim();
     const err = nombreError;
-    err.textContent = val === '' ? 'El nombre es obligatorio.' : '';
+    err.textContent = val === "" ? "El nombre es obligatorio." : "";
   });
 
-  telefono.addEventListener('input', () => {
+  telefono.addEventListener("input", () => {
     const val = telefono.value.trim();
     const err = telefonoError;
-    if (val === '') err.textContent = 'El teléfono es obligatorio.';
-    else if (!/^\d{8}$/.test(val)) err.textContent = 'Debe tener exactamente 8 dígitos.';
-    else err.textContent = '';
+    if (val === "") err.textContent = "El teléfono es obligatorio.";
+    else if (!/^\d{8}$/.test(val))
+      err.textContent = "Debe tener exactamente 8 dígitos.";
+    else err.textContent = "";
   });
 
-  email.addEventListener('input', () => {
+  email.addEventListener("input", () => {
     const val = email.value.trim();
     const err = emailError;
-    if (val === '') err.textContent = 'El correo es obligatorio.';
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) err.textContent = 'Formato de correo inválido.';
-    else err.textContent = '';
+    if (val === "") err.textContent = "El correo es obligatorio.";
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val))
+      err.textContent = "Formato de correo inválido.";
+    else err.textContent = "";
   });
 
   // Botón editar
-  btnEditar.addEventListener('click', () => {
+  btnEditar.addEventListener("click", () => {
     habilitarCampos();
   });
 
   // Guardar cambios
-  formPerfil.addEventListener('submit', (e) => {
+  formPerfil.addEventListener("submit", (e) => {
     e.preventDefault();
 
     // Validar antes de guardar
-    if (nombre.value.trim() === '' || email.value.trim === '' || telefono.value.trim() === '') {
-      alert('Por favor rellene todos los campos.');
+    if (
+      nombre.value.trim() === "" ||
+      email.value.trim === "" ||
+      telefono.value.trim() === ""
+    ) {
+      alert("Por favor rellene todos los campos.");
       return;
     }
     if (!/^\d{8}$/.test(telefono)) {
-      alert('El teléfono debe tener exactamente 8 dígitos.');
+      alert("El teléfono debe tener exactamente 8 dígitos.");
       return;
     }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      alert('El formato del correo no es válido.');
+      alert("El formato del correo no es válido.");
       return;
     }
 
     // Actualizar usuarioActivo
-    let usuarioActivo = JSON.parse(sessionStorage.getItem('usuarioActivo'));
+    let usuarioActivo = JSON.parse(sessionStorage.getItem("usuarioActivo"));
     usuarioActivo.nombre = nombre;
     usuarioActivo.email = email;
     usuarioActivo.telefono = telefono;
-    sessionStorage.setItem('usuarioActivo', JSON.stringify(usuarioActivo));
+    sessionStorage.setItem("usuarioActivo", JSON.stringify(usuarioActivo));
 
     // Actualizar en usuariosRegistrados
-    let usuarios = JSON.parse(localStorage.getItem('usuariosRegistrados')) || [];
-    usuarios = usuarios.map(u =>
-      u.username === usuarioActivo.username ? usuarioActivo : u
+    let usuarios =
+      JSON.parse(localStorage.getItem("usuariosRegistrados")) || [];
+    usuarios = usuarios.map((u) =>
+      u.username === usuarioActivo.username ? usuarioActivo : u,
     );
-    localStorage.setItem('usuariosRegistrados', JSON.stringify(usuarios));
+    localStorage.setItem("usuariosRegistrados", JSON.stringify(usuarios));
 
-    alert('Perfil actualizado correctamente.');
+    alert("Perfil actualizado correctamente.");
     deshabilitarCampos();
   });
 });
@@ -133,7 +136,7 @@ function confirmLogout() {
   if (seguro) {
     sessionStorage.removeItem("usuarioActivo");
     alert("Sesión cerrada correctamente");
-    window.location.href = "Index.html";
+    window.location.href = "../index.html";
   } else {
     alert("Acción cancelada");
   }

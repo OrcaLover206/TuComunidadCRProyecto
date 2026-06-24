@@ -15,7 +15,7 @@ html {
       rgba(11, 14, 13, 0.364) 50%,
       rgba(0, 0, 0, 0) 100%
     ),
-    url("../Images/LogInBackground.jpg");
+    url("../IMAGES/LogInBackground.jpg");
   background-size:
     cover,
     115% 145%;
@@ -200,7 +200,7 @@ button {
         rgba(11, 14, 13, 0.364) 50%,
         rgba(0, 0, 0, 0) 100%
       ),
-      url("../Images/LogInBackground.jpg");
+      url("../IMAGES/LogInBackground.jpg");
     background-size:
       cover, cover, cover; /* CAMBIADO: de 115% 145% a cover para que se ajuste al fondo */
     background-attachment: fixed;

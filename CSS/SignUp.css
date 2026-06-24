@@ -15,7 +15,7 @@ html {
       rgba(11, 14, 13, 0.364) 50%,
       rgba(6, 6, 6, 0.6) 100%
     ),
-    url("../Images/SingUpBackground.jpg");
+    url("../IMAGES/SingUpBackground.jpg");
   background-size: cover, cover;
   background-attachment: fixed;
   background-position: center, center;
@@ -233,7 +233,7 @@ button {
         rgba(11, 14, 13, 0.364) 50%,
         rgba(0, 0, 0, 0) 100%
       ),
-      url("../Images/SignUpBackground.jpg");
+      url("../IMAGES/SingUpBackground.jpg");
     background-size:
       cover, cover, cover; /* CAMBIADO: de 115% 145% a cover para que se ajuste al fondo */
     background-attachment: fixed;
@@ -313,7 +313,6 @@ button {
     transform: translateY(-2px);
   }
 }
-
 
 /* ======================================================== */
 /* Estilos para mensajes con respecto a la validación */

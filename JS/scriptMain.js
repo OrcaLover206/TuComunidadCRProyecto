@@ -101,7 +101,7 @@ function crearEventoDiv(evento) {
       alert("No hay un usuario activo.");
       alert("Serás redirigido al Login para iniciar sesión o registrarte.");
       setTimeout(() => {
-        window.location.href = "Login.html";
+        window.location.href = "./Login.html";
       }, 1000);
       return;
     }
@@ -238,19 +238,21 @@ async function inicializar() {
       );
     }
 
-    if (filtrados.length !== 0 ){
-    filtrados.forEach((ev) => {
-      comunidadContainer.appendChild(crearEventoDiv(ev));
-    });
-  }else{
+    if (filtrados.length !== 0) {
+      filtrados.forEach((ev) => {
+        comunidadContainer.appendChild(crearEventoDiv(ev));
+      });
+    } else {
       const msg = document.createElement("p");
-      const msg2 = document.createElement("p")
-    msg.textContent = "No existen eventos que cumplan con esas características buscadas.";
-    msg2.textContent = "Por favor escoja otro filtro o elimine la busqueda de la barra de busqueda"
-    comunidadContainer.appendChild(msg);
-    comunidadContainer.appendChild(msg2);
-  }
-};
+      const msg2 = document.createElement("p");
+      msg.textContent =
+        "No existen eventos que cumplan con esas características buscadas.";
+      msg2.textContent =
+        "Por favor escoja otro filtro o elimine la busqueda de la barra de busqueda";
+      comunidadContainer.appendChild(msg);
+      comunidadContainer.appendChild(msg2);
+    }
+  };
 
   // Cuando cambia la provincia, actualizar municipalidades
   provinciasSelect.addEventListener("change", () => {
@@ -309,7 +311,7 @@ function confirmLogout() {
   if (seguro) {
     sessionStorage.removeItem("usuarioActivo");
     alert("Sesión cerrada correctamente");
-    window.location.href = "Index.html";
+    window.location.href = "../index.html";
   } else {
     alert("Acción cancelada");
   }
@@ -387,7 +389,6 @@ async function inicializarAutocomplete() {
           if (renderEventosComunidad) renderEventosComunidad();
         });
         sugerenciasDiv.appendChild(opcion);
-
       });
       sugerenciasDiv.style.display = filtrados.length ? "block" : "none";
     } else {

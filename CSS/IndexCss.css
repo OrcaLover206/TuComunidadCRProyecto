@@ -1,183 +1,186 @@
 /* ===== RESETEO GLOBAL ===== */
 /* Elimina márgenes y padding por defecto, y aplica box-sizing para mejor control del tamaño */
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 /* ===== FONDO DE LA PÁGINA ===== */
 /* Configura la imagen de fondo con un degradado azul a transparente superpuesto */
-html{
-    height: 100%;
-    background-image: 
+html {
+  height: 100%;
+  background-image: 
         /* Degradado azul oscuro (opacity 70%) a transparente */
-        linear-gradient(135deg, rgba(5, 26, 50, 0.7) 0%, rgba(9, 42, 83, 0.3) 50%, rgba(0, 0, 0, 0) 100%),
-        /* Imagen de fondo */
-        url("../Images/indexBackground.jpg");
-    background-size: cover;
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
+    linear-gradient(
+      135deg,
+      rgba(5, 26, 50, 0.7) 0%,
+      rgba(9, 42, 83, 0.3) 50%,
+      rgba(0, 0, 0, 0) 100%
+    ),
+    /* Imagen de fondo */ url("../IMAGES/indexBackground.jpg");
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 /* ===== CUERPO DE LA PÁGINA ===== */
 /* Usa flexbox para centrar el contenido verticalmente */
-body{
-    height: 105%;
-    width: 111%;
-    display: flex;
-    align-items: center;
-    transform: scale(0.83);
-    transform-origin: top left;
-
+body {
+  height: 105%;
+  width: 111%;
+  display: flex;
+  align-items: center;
+  transform: scale(0.83);
+  transform-origin: top left;
 }
 
 /* ===== CONTENEDOR PRINCIPAL ===== */
 /* Ocupa todo el ancho y alto, usa flexbox para centrar */
-main{
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
+main {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
 }
 
 /* ===== SECCIÓN HERO (contenedor principal del contenido) ===== */
 /* Organiza el contenido en columna con espaciado entre elementos */
-#hero{
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    padding: 4rem 4rem;
-    gap: 10px; /*espacio uniforme de 20 píxeles entre cada elemento hijo dentro del contenedor*/
-    max-width: 1000px;
-    margin-left: 3rem;
+#hero {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 4rem 4rem;
+  gap: 10px; /*espacio uniforme de 20 píxeles entre cada elemento hijo dentro del contenedor*/
+  max-width: 1000px;
+  margin-left: 3rem;
 }
 
 /* ===== LOGO ===== */
 /* Establece el tamaño del logo */
-#logo-img img{
-    width: 150px;
-    height: auto;
+#logo-img img {
+  width: 150px;
+  height: auto;
 }
 
 /* ===== TÍTULO PRINCIPAL (H1) ===== */
-h1{
-    color: white;
-    font-size: 4em;
-    font-weight: bold;
-    margin: 20px 0;
-    font-family: Arial, sans-serif;
+h1 {
+  color: white;
+  font-size: 4em;
+  font-weight: bold;
+  margin: 20px 0;
+  font-family: Arial, sans-serif;
 }
 
 /* ===== PÁRRAFO DE DESCRIPCIÓN ===== */
 /* Texto con fondo oscuro semitransparente y borde azul */
-p{
-    color: white;
-    padding: 20px;
-    border-left: 4px solid #ffffff;
-    font-size: 1.2em;
-    line-height: 1.6;
-    font-family: Raleway, sans-serif;
-    margin: 20px 0;
+p {
+  color: white;
+  padding: 20px;
+  border-left: 4px solid #ffffff;
+  font-size: 1.2em;
+  line-height: 1.6;
+  font-family: Raleway, sans-serif;
+  margin: 20px 0;
 }
 
 /* ===== CONTENEDOR DE BOTONES ===== */
 /* Agrupa los botones de forma horizontal con espaciado */
-#buttons-container{
-    display: flex;
-    gap: 15px;
-    margin-top: 20px;
+#buttons-container {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
 }
 
 /* ===== ESTILOS GENERALES DE ENLACES/BOTONES ===== */
 /* Aplica estilo base a todos los botones */
-a{
-    padding: 12px 10rem;
-    border-radius: 10px;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 1em;
-    font-family: Arial, sans-serif;
-    border: 2px solid transparent;
-    transition: all 0.3s ease;
+a {
+  padding: 12px 10rem;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1em;
+  font-family: Arial, sans-serif;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
 }
 
 /* ===== BOTÓN "LOG IN" (primer botón) ===== */
 /* Fondo blanco, texto oscuro */
-#login-btn{
-    background-color: white;
-    color: #333;
+#login-btn {
+  background-color: white;
+  color: #333;
 }
 
 /* Efecto al pasar el ratón sobre el botón Log in */
-#login-btn:hover{
-    transform: translateY(-5px);
+#login-btn:hover {
+  transform: translateY(-5px);
 }
 
 /* ===== BOTÓN "EVENTOS" (segundo botón) ===== */
 /* Fondo transparente, borde blanco, texto blanco */
-#events-btn{
-    background-color: transparent;
-    color: white;
-    border: 2px solid white;
+#events-btn {
+  background-color: transparent;
+  color: white;
+  border: 2px solid white;
 }
 
 /* Efecto al pasar el ratón sobre el botón Eventos */
-#events-btn:hover{
-    transform: translateY(-5px);
+#events-btn:hover {
+  transform: translateY(-5px);
 }
 
 /* ===== DISEÑO RESPONSIVO (tablets y móviles) ===== */
 /* Ajusta los tamaños para pantallas menores a 768px */
-@media(max-width: 768px){
-    /* Centra el hero en móvil */
-    #hero{
-        padding: 2rem 1.5rem;
-        margin-left: auto;
-        margin-right: auto;
-        max-width: 100%;
-        width: 100%;
-        align-items: center;
-        text-align: center;
-    }
-    
-    /* Ajusta el logo para móvil */
-    #logo-img img{
-        width: 100px;
-    }
-    
-    /* Reduce el tamaño del título en móvil */
-    h1{
-        font-size: 2.2em;
-        margin: 15px 0;
-    }
-    
-    /* Ajusta el párrafo para móvil */
-    p{
-        border-top: 4px solid #ffffff;
-        border-left: none;
-        font-size: 0.9em;
-        padding: 15px;
-        margin: 15px 0;
-    }
-    
-    /* Ajusta los botones para móvil */
-    #buttons-container{
-        flex-direction: column;
-        width: 100%;
-        gap: 10px;
-    }
-    #events-btn:hover{
-        background-color: #249e94 ;
-        border : none;
-        transform: translateY(0);
-    }
-    
-    /* Hace que los botones ocupen todo el ancho en móvil */
-    a{
-        padding: 12px 20px;
-        width: 100%;
-        text-align: center;
-    }
+@media (max-width: 768px) {
+  /* Centra el hero en móvil */
+  #hero {
+    padding: 2rem 1.5rem;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%;
+    width: 100%;
+    align-items: center;
+    text-align: center;
+  }
+
+  /* Ajusta el logo para móvil */
+  #logo-img img {
+    width: 100px;
+  }
+
+  /* Reduce el tamaño del título en móvil */
+  h1 {
+    font-size: 2.2em;
+    margin: 15px 0;
+  }
+
+  /* Ajusta el párrafo para móvil */
+  p {
+    border-top: 4px solid #ffffff;
+    border-left: none;
+    font-size: 0.9em;
+    padding: 15px;
+    margin: 15px 0;
+  }
+
+  /* Ajusta los botones para móvil */
+  #buttons-container {
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+  }
+  #events-btn:hover {
+    background-color: #249e94;
+    border: none;
+    transform: translateY(0);
+  }
+
+  /* Hace que los botones ocupen todo el ancho en móvil */
+  a {
+    padding: 12px 20px;
+    width: 100%;
+    text-align: center;
+  }
 }

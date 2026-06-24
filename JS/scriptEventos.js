@@ -5,12 +5,12 @@ document.addEventListener("DOMContentLoaded", () => {
 function cargarMisEventos() {
   const misEventos = document.getElementById("eventos-inscritos");
   const usuarioActivo = JSON.parse(sessionStorage.getItem("usuarioActivo"));
-  if(!usuarioActivo){
-    alert("No se encontro una sesion activa, redirigiendo a login")
-    window.location.href = 'Login.html';
+  if (!usuarioActivo) {
+    alert("No se encontro una sesion activa, redirigiendo a login");
+    window.location.href = "./Login.html";
     return;
   }
-  
+
   if (!usuarioActivo.eventos || usuarioActivo.eventos.length === 0) {
     misEventos.innerHTML = "<p>No estás inscrito en ningún evento.</p>";
     return;
@@ -54,8 +54,8 @@ function crearEventoDiv(evento) {
   muniProv.textContent = `Municipalidad: ${evento.municipalidad} | Provincia: ${evento.provincia}`;
   div.appendChild(muniProv);
 
-    const botonEliminar = document.createElement("button")
-  botonEliminar.textContent = 'Eliminar participación';
+  const botonEliminar = document.createElement("button");
+  botonEliminar.textContent = "Eliminar participación";
   botonEliminar.addEventListener("click", () => eliminarRegistro(evento, div));
 
   div.appendChild(botonEliminar);
@@ -63,34 +63,40 @@ function crearEventoDiv(evento) {
 }
 
 function eliminarRegistro(evento, div) {
-  const seguro = confirm(`¿Está seguro de querer eliminar su participación en ${evento.nombre}?`);
+  const seguro = confirm(
+    `¿Está seguro de querer eliminar su participación en ${evento.nombre}?`,
+  );
   if (seguro) {
-    let usuarioActivo = JSON.parse(sessionStorage.getItem('usuarioActivo'));
-    usuarioActivo.eventos = usuarioActivo.eventos.filter(e => e.nombre !== evento.nombre);
-    sessionStorage.setItem('usuarioActivo', JSON.stringify(usuarioActivo));
+    let usuarioActivo = JSON.parse(sessionStorage.getItem("usuarioActivo"));
+    usuarioActivo.eventos = usuarioActivo.eventos.filter(
+      (e) => e.nombre !== evento.nombre,
+    );
+    sessionStorage.setItem("usuarioActivo", JSON.stringify(usuarioActivo));
 
     // Actualizar en usuariosRegistrados
-    let usuarios = JSON.parse(localStorage.getItem('usuariosRegistrados')) || [];
-    usuarios = usuarios.map(u =>
-      u.username === usuarioActivo.username ? usuarioActivo : u
+    let usuarios =
+      JSON.parse(localStorage.getItem("usuariosRegistrados")) || [];
+    usuarios = usuarios.map((u) =>
+      u.username === usuarioActivo.username ? usuarioActivo : u,
     );
-    localStorage.setItem('usuariosRegistrados', JSON.stringify(usuarios));
+    localStorage.setItem("usuariosRegistrados", JSON.stringify(usuarios));
 
     // Incrementar cupo
-    let cupos = JSON.parse(localStorage.getItem('cuposEventos')) || {};
+    let cupos = JSON.parse(localStorage.getItem("cuposEventos")) || {};
     cupos[evento.nombre] = (cupos[evento.nombre] ?? evento.disponibles) + 1;
-    localStorage.setItem('cuposEventos', JSON.stringify(cupos));
+    localStorage.setItem("cuposEventos", JSON.stringify(cupos));
 
     // Quitar el div de la pantalla
     div.remove();
 
-    alert("Inscripcion eliminada con exito, si deseara volver a inscribirse, regrese a la pagina de eventos")
+    alert(
+      "Inscripcion eliminada con exito, si deseara volver a inscribirse, regrese a la pagina de eventos",
+    );
     cargarMisEventos();
-  }else{
-    alert(`No se cancelo su inscripcion de ${evento.nombre}`)
+  } else {
+    alert(`No se cancelo su inscripcion de ${evento.nombre}`);
   }
 }
-
 
 // =================== MENÚ Y LOGOUT ===================
 // Alterna la visibilidad del menú. Solo muestra la opción de cerrar sesión.
@@ -113,7 +119,7 @@ function confirmLogout() {
   if (seguro) {
     sessionStorage.removeItem("usuarioActivo");
     alert("Sesión cerrada correctamente");
-    window.location.href = "Index.html";
+    window.location.href = "../index.html";
   } else {
     alert("Acción cancelada");
   }
