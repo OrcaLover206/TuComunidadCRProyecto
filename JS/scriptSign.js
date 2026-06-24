@@ -60,7 +60,10 @@ document.addEventListener('DOMContentLoaded', () => {
     nombreInput.addEventListener('input', () => {
         if (nombreInput.value.trim() === '') {
             mostrarError(nombreError, 'El nombre completo es requerido.');
-        } else {
+        } else if(nombreInput.value.trim().length < 3){
+            mostrarError(nombreError, 'Por favor ingrese un nombre valido ')
+        }
+        else {
             limpiarError(nombreError);
         }
     });
@@ -104,7 +107,10 @@ document.addEventListener('DOMContentLoaded', () => {
             mostrarError(userError, 'El nombre de usuario es requerido.');
         } else if (usuariosParaValidar.some(u => u.username.toLowerCase() === username.toLowerCase())) {
             mostrarError(userError, 'Este nombre de usuario ya está en uso, por favor elige otro para registrarte.');
-        } else {
+        } else if(username.length <= 2){
+            mostrarError(userError, 'Username demasiado corto, por favor ingrese uno con mayor longitud ')
+        }
+        else {
             limpiarError(userError);
         }
     });

@@ -4,9 +4,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function cargarMisEventos() {
   const misEventos = document.getElementById("eventos-inscritos");
-  const usuarioActivo = JSON.parse(localStorage.getItem("usuarioActivo"));
-
-  if (!usuarioActivo || !usuarioActivo.eventos || usuarioActivo.eventos.length === 0) {
+  const usuarioActivo = JSON.parse(sessionStorage.getItem("usuarioActivo"));
+  if(!usuarioActivo){
+    alert("No se encontro una sesion activa, redirigiendo a login")
+    window.location.href = 'Login.html';
+    return;
+  }
+  
+  if (!usuarioActivo.eventos || usuarioActivo.eventos.length === 0) {
     misEventos.innerHTML = "<p>No estás inscrito en ningún evento.</p>";
     return;
   }
@@ -60,9 +65,9 @@ function crearEventoDiv(evento) {
 function eliminarRegistro(evento, div) {
   const seguro = confirm(`¿Está seguro de querer eliminar su participación en ${evento.nombre}?`);
   if (seguro) {
-    let usuarioActivo = JSON.parse(localStorage.getItem('usuarioActivo'));
+    let usuarioActivo = JSON.parse(sessionStorage.getItem('usuarioActivo'));
     usuarioActivo.eventos = usuarioActivo.eventos.filter(e => e.nombre !== evento.nombre);
-    localStorage.setItem('usuarioActivo', JSON.stringify(usuarioActivo));
+    sessionStorage.setItem('usuarioActivo', JSON.stringify(usuarioActivo));
 
     // Actualizar en usuariosRegistrados
     let usuarios = JSON.parse(localStorage.getItem('usuariosRegistrados')) || [];
@@ -91,7 +96,7 @@ function eliminarRegistro(evento, div) {
 // Alterna la visibilidad del menú. Solo muestra la opción de cerrar sesión.
 function toggleMenu() {
   const menuWithoutProfile = document.getElementById("menuSinCuenta");
-  const usuarioActivo = JSON.parse(localStorage.getItem("usuarioActivo"));
+  const usuarioActivo = JSON.parse(sessionStorage.getItem("usuarioActivo"));
   if (!usuarioActivo) {
     menuWithoutProfile.style.display =
       menuWithoutProfile.style.display === "none" ? "block" : "none";
@@ -106,7 +111,7 @@ function toggleMenu() {
 function confirmLogout() {
   const seguro = confirm("¿Estás seguro de cerrar sesión?");
   if (seguro) {
-    localStorage.removeItem("usuarioActivo");
+    sessionStorage.removeItem("usuarioActivo");
     alert("Sesión cerrada correctamente");
     window.location.href = "Index.html";
   } else {

@@ -99,13 +99,13 @@ document.addEventListener('DOMContentLoaded', () => {
         // Si pasa todos los filtros, inicia sesión con éxito
         mostrarMensajeGlobal('Inicio de sesión exitoso. Redirigiendo...', 'exito');
         
-        // Guardar en localStorage cuál es el usuario que está "activo" actualmente en la sesión 
-        localStorage.setItem('usuarioActivo', JSON.stringify(usuarioEncontrado));
+        // Guardar en sessionStorage cuál es el usuario que está activo actualmente en la sesión 
+        sessionStorage.setItem('usuarioActivo', JSON.stringify(usuarioEncontrado));
 
         // Limpiar estilos de error si los había
         UserInput.classList.remove('input-error');
         passwordInput.classList.remove('input-error');
-        // Redirigir a la página Main después de 1.5 segundos
+        // Redirigir a la página Main después de 2.7 segundos
         setTimeout(() => {
 
             window.location.href = 'Main.html'; 

@@ -2,8 +2,8 @@
 const Id = document.getElementById("Id")
 const nombre = document.getElementById("nombre")
 const email = document.getElementById("email")
-const telefono = getElementById("telefono")
-const formPerfil = getElementById("formPerfil")
+const telefono = document.getElementById("telefono")
+const formPerfil = document.getElementById("formPerfil")
 const btnEditar =  document.getElementById("btnEditar")
 const nombreError = document.getElementById("nombreError")
 const telefonoError =document.getElementById("telefonoError")
@@ -15,14 +15,14 @@ const emailError = document.getElementById("emailError")
 
 // =================== CARGAR DATOS DEL PERFIL ===================
 function cargarDatosPerfil() {
-  const usuarioActivo = JSON.parse(localStorage.getItem('usuarioActivo'));
+  const usuarioActivo = JSON.parse(sessionStorage.getItem('usuarioActivo'));
   if (!usuarioActivo) {
     alert("No se encontro una sesion activa, redirigiendo a login")
     window.location.href = 'Login.html';
     return;
   }
 
-  id.value = usuarioActivo.id || usuarioActivo.ID || '';
+  Id.value = usuarioActivo.id || usuarioActivo.ID || '';
   nombre.value = usuarioActivo.nombre || usuarioActivo.Nombre || '';
   email.value = usuarioActivo.email || usuarioActivo.Correo || '';
   telefono.value = usuarioActivo.telefono || usuarioActivo.Telefono || '';
@@ -94,11 +94,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Actualizar usuarioActivo
-    let usuarioActivo = JSON.parse(localStorage.getItem('usuarioActivo'));
+    let usuarioActivo = JSON.parse(sessionStorage.getItem('usuarioActivo'));
     usuarioActivo.nombre = nombre;
     usuarioActivo.email = email;
     usuarioActivo.telefono = telefono;
-    localStorage.setItem('usuarioActivo', JSON.stringify(usuarioActivo));
+    sessionStorage.setItem('usuarioActivo', JSON.stringify(usuarioActivo));
 
     // Actualizar en usuariosRegistrados
     let usuarios = JSON.parse(localStorage.getItem('usuariosRegistrados')) || [];
@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // Alterna la visibilidad del menú. Solo muestra la opción de cerrar sesión.
 function toggleMenu() {
   const menuWithoutProfile = document.getElementById("menuSinCuenta");
-  const usuarioActivo = JSON.parse(localStorage.getItem("usuarioActivo"));
+  const usuarioActivo = JSON.parse(sessionStorage.getItem("usuarioActivo"));
   if (!usuarioActivo) {
     menuWithoutProfile.style.display =
       menuWithoutProfile.style.display === "none" ? "block" : "none";
@@ -131,7 +131,7 @@ function toggleMenu() {
 function confirmLogout() {
   const seguro = confirm("¿Estás seguro de cerrar sesión?");
   if (seguro) {
-    localStorage.removeItem("usuarioActivo");
+    sessionStorage.removeItem("usuarioActivo");
     alert("Sesión cerrada correctamente");
     window.location.href = "Index.html";
   } else {

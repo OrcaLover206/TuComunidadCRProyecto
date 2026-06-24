@@ -96,7 +96,7 @@ function crearEventoDiv(evento) {
   boton.id = `btn-${evento.nombre.replace(/\s+/g, "-").toLowerCase()}`;
   boton.textContent = "REGISTRO";
   boton.addEventListener("click", () => {
-    const usuarioActivo = JSON.parse(localStorage.getItem("usuarioActivo"));
+    const usuarioActivo = JSON.parse(sessionStorage.getItem("usuarioActivo"));
     if (!usuarioActivo) {
       alert("No hay un usuario activo.");
       alert("Serás redirigido al Login para iniciar sesión o registrarte.");
@@ -106,13 +106,13 @@ function crearEventoDiv(evento) {
       return;
     }
 
-    const yaRegistrado = usuarioActivo.eventos.some(
-      (e) => e.nombre === evento.nombre,
-    );
-    if (yaRegistrado) {
-      alert("Ya estás registrado en este evento.");
-      return;
-    }
+    // const yaRegistrado = usuarioActivo.eventos.some(
+    //   (e) => e.nombre === evento.nombre,
+    // );
+    // if (yaRegistrado) {
+    //   alert("Ya estás registrado en este evento.");
+    //   return;
+    // }
 
     const respuesta = window.confirm(
       `¿Estás seguro de querer registrarse en el evento ${evento.nombre}?`,
@@ -294,7 +294,7 @@ async function inicializar() {
 // =================== MENÚ Y LOGOUT ===================
 function toggleMenu() {
   const menuWithoutProfile = document.getElementById("menuSinCuenta");
-  const usuarioActivo = JSON.parse(localStorage.getItem("usuarioActivo"));
+  const usuarioActivo = JSON.parse(sessionStorage.getItem("usuarioActivo"));
   if (!usuarioActivo) {
     menuWithoutProfile.style.display =
       menuWithoutProfile.style.display === "none" ? "block" : "none";
@@ -307,7 +307,7 @@ function toggleMenu() {
 function confirmLogout() {
   const seguro = confirm("¿Estás seguro de cerrar sesión?");
   if (seguro) {
-    localStorage.removeItem("usuarioActivo");
+    sessionStorage.removeItem("usuarioActivo");
     alert("Sesión cerrada correctamente");
     window.location.href = "Index.html";
   } else {
@@ -317,13 +317,13 @@ function confirmLogout() {
 
 // =================== REGISTRAR USUARIO EN EVENTO ===================
 function registrarUsuarioEnEvento(evento, boton) {
-  const usuarioActivo = JSON.parse(localStorage.getItem("usuarioActivo"));
+  const usuarioActivo = JSON.parse(sessionStorage.getItem("usuarioActivo"));
   if (!usuarioActivo.eventos) {
     usuarioActivo.eventos = [];
   }
 
   usuarioActivo.eventos.push(evento);
-  localStorage.setItem("usuarioActivo", JSON.stringify(usuarioActivo));
+  sessionStorage.setItem("usuarioActivo", JSON.stringify(usuarioActivo));
 
   let usuarios = JSON.parse(localStorage.getItem("usuariosRegistrados")) || [];
   usuarios = usuarios.map((u) =>
@@ -337,7 +337,7 @@ function registrarUsuarioEnEvento(evento, boton) {
 
 // =================== BLOQUEAR EVENTOS REGISTRADOS ===================
 function bloquearEventosRegistrados() {
-  const usuarioActivo = JSON.parse(localStorage.getItem("usuarioActivo"));
+  const usuarioActivo = JSON.parse(sessionStorage.getItem("usuarioActivo"));
   if (!usuarioActivo || !usuarioActivo.eventos) return;
 
   usuarioActivo.eventos.forEach((e) => {
@@ -411,12 +411,12 @@ document.addEventListener("click", (e) => {
   }
 });
 
-// =================== INICIALIZACIÓN ===================
-let usuarios = JSON.parse(localStorage.getItem("usuariosRegistrados")) || [];
-usuarios = usuarios.map((u) => {
-  if (!u.eventos) u.eventos = [];
-  return u;
-});
+// // =================== INICIALIZACIÓN ===================
+// let usuarios = JSON.parse(localStorage.getItem("usuariosRegistrados")) || [];
+// usuarios = usuarios.map((u) => {
+//   if (!u.eventos) u.eventos = [];
+//   return u;
+// });
 
 inicializar();
 inicializarAutocomplete();
