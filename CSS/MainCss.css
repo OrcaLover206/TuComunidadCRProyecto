@@ -106,31 +106,12 @@ nav {
   background-color: #4caf50;
 }
 
-/* Solo el último ítem (Salir) tiene fondo rojo */
 #submenu li:last-child a {
   background-color: #e53935;
 }
 
 #submenu li:last-child a:hover {
   background-color: #b71c1c;
-}
-
-/* ===== BARRA DE BÚSQUEDA ===== */
-.autocomplete {
-  display: flex;
-  align-items: center;
-  position: relative;
-  margin-left: auto;
-  margin-right: 20px;
-  border-radius: 25px;
-}
-
-.autocomplete input {
-  padding: 10px 16px;
-  border: none;
-  border-radius: 25px;
-  width: 300px;
-  font-size: 1rem;
 }
 
 /* ===== BARRA DE BÚSQUEDA ===== */
@@ -161,8 +142,12 @@ nav {
 #busqueda {
   display: none;
   padding: 10px 16px;
+  border: 1px solid #ddd;
+  border-radius: 25px;
   width: 260px;
   font-size: 1rem;
+  font-family: Raleway, sans-serif;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 #busqueda.search-visible {
@@ -184,6 +169,7 @@ nav {
   overflow-y: auto;
   z-index: 101;
   width: 260px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .sugerencias-item {
@@ -194,6 +180,7 @@ nav {
 .sugerencias-item:hover {
   background-color: #f0f0f0;
 }
+
 /* ===== SECCIÓN BIENVENIDA ===== */
 #bienvenida {
   position: relative;
@@ -239,7 +226,7 @@ nav {
   flex: 1;
 }
 
-/* ===== EVENTOS DESTACADOS: cards verticales en fila ===== */
+/* ===== EVENTOS DESTACADOS ===== */
 #eventos-destacados {
   display: flex;
   flex-direction: row;
@@ -271,7 +258,7 @@ nav {
   gap: 10px;
 }
 
-/* ===== EVENTOS COMUNIDAD: cards horizontales en columna ===== */
+/* ===== EVENTOS COMUNIDAD ===== */
 #eventos-comunidad {
   display: flex;
   flex-direction: column;
@@ -524,7 +511,7 @@ footer p {
 /* ===== RESPONSIVE TABLET (max 768px) ===== */
 @media (max-width: 768px) {
   body {
-    margin: 70px 12px;
+    margin: 80px 14px 14px 14px;
   }
 
   nav {
@@ -535,36 +522,31 @@ footer p {
     font-size: 1rem;
   }
 
-  /* Área de toque más grande en móvil */
   #search-icon {
-    width: 26px;
-    height: 26px;
-    padding: 14px;
-    opacity: 0.6;
+    width: 24px;
+    height: 24px;
+    padding: 12px;
+    opacity: 0.7;
   }
 
-  /* Input desplegado ocupa todo el ancho debajo del nav */
   #busqueda.search-visible {
-    display: block;
     position: fixed;
-    top: 80px;
+    top: 58px;
     left: 0;
     right: 0;
     width: 100%;
     border-radius: 0;
     border: none;
-    border-bottom: 2px solid #757979;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-    padding: 16px 20px;
-    font-size: 1rem;
+    border-bottom: 2px solid #2bbfbf;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+    padding: 14px 20px;
     z-index: 99;
     background-color: white;
-    font-family: Raleway, sans-serif;
   }
 
   .sugerencias {
     position: fixed;
-    top: 108px;
+    top: 106px;
     left: 0;
     right: 0;
     width: 100%;
@@ -572,7 +554,8 @@ footer p {
   }
 
   #bienvenida {
-    padding: 80px 20px;
+    padding: 70px 20px;
+    border-radius: 16px;
   }
 
   #bienvenida h1 {
@@ -587,20 +570,31 @@ footer p {
     bottom: 14px;
   }
 
+  /* Destacados: scroll horizontal en tablet */
   #eventos-destacados {
-    flex-direction: column;
-    align-items: center;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    justify-content: flex-start;
+    padding-bottom: 8px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  #eventos-destacados::-webkit-scrollbar {
+    display: none;
   }
 
   #eventos-destacados .evento {
-    width: 100%;
-    max-width: 400px;
+    min-width: 240px;
+    width: 240px;
+    flex-shrink: 0;
   }
 
+  /* Comunidad: imagen más pequeña */
   #eventos-comunidad .evento-imagen {
-    width: 120px;
-    min-width: 120px;
-    height: 120px;
+    width: 110px;
+    min-width: 110px;
+    height: 110px;
   }
 
   #filtros-eventos {
@@ -612,11 +606,11 @@ footer p {
 /* ===== RESPONSIVE MÓVIL (max 480px) ===== */
 @media (max-width: 480px) {
   body {
-    margin: 65px 10px;
+    margin: 75px 10px 10px 10px;
   }
 
   .nav-title {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
   }
 
   .nav-logo {
@@ -624,7 +618,7 @@ footer p {
   }
 
   .nav-cuenta {
-    font-size: 0.8rem;
+    font-size: 0.78rem;
     padding: 6px 12px;
   }
 
@@ -634,40 +628,69 @@ footer p {
     min-width: 140px;
   }
 
-  #search-icon {
-    width: 24px;
-    height: 24px;
-    padding: 16px;
-  }
-
   #bienvenida {
-    padding: 60px 16px;
+    padding: 55px 14px;
+    border-radius: 12px;
   }
 
   #bienvenida h1 {
-    font-size: 1.4rem;
-    bottom: 36px;
+    font-size: 1.3rem;
+    bottom: 32px;
+    left: 14px;
   }
 
   #bienvenida p {
-    font-size: 0.9rem;
-    bottom: 12px;
+    font-size: 0.88rem;
+    bottom: 10px;
+    left: 14px;
   }
 
+  /* Destacados: scroll horizontal en móvil */
+  #eventos-destacados {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    justify-content: flex-start;
+    padding-bottom: 8px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 14px;
+  }
+
+  #eventos-destacados::-webkit-scrollbar {
+    display: none;
+  }
+
+  #eventos-destacados .evento {
+    min-width: 210px;
+    width: 210px;
+    flex-shrink: 0;
+  }
+
+  #eventos-destacados .evento-imagen {
+    height: 140px;
+  }
+
+  /* Comunidad: card en columna */
   #eventos-comunidad .evento {
     flex-direction: column;
     padding: 12px;
+    gap: 12px;
   }
 
   #eventos-comunidad .evento-imagen {
     width: 100%;
     min-width: unset;
-    height: 160px;
-    border-radius: 8px;
+    height: 180px;
+    border-radius: 10px;
+    align-self: stretch;
+  }
+
+  #eventos-comunidad .evento-contenido {
+    padding: 0;
   }
 
   .evento-contenido button {
-    padding: 10px;
+    padding: 11px;
     font-size: 0.85rem;
   }
 }

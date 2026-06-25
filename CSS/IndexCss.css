@@ -15,7 +15,7 @@ html {
     linear-gradient(
       135deg,
       rgba(5, 26, 50, 0.7) 0%,
-      rgba(9, 42, 83, 0.3) 50%,
+      rgba(8, 20, 34, 0.714) 50%,
       rgba(0, 0, 0, 0) 100%
     ),
     /* Imagen de fondo */ url("../IMAGES/indexBackground.jpg");
@@ -131,6 +131,18 @@ a {
   transform: translateY(-5px);
 }
 
+#more-info-btn {
+  height: 40px;
+  width: 150px;
+  font-size: 1em;
+  border-radius: 8px;
+  background-color: #ffffff23;
+  color: #ffffff;
+  border: 1px solid #ffffff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
 /* ===== DISEÑO RESPONSIVO (tablets y móviles) ===== */
 /* Ajusta los tamaños para pantallas menores a 768px */
 @media (max-width: 768px) {
@@ -141,23 +153,26 @@ a {
     margin-right: auto;
     max-width: 100%;
     width: 100%;
-    align-items: center;
-    text-align: center;
+    display: flex; /* asegura flexbox */
+    flex-direction: column; /* organiza en columna */
+    align-items: center; /* centra horizontalmente */
+    text-align: center; /* centra texto */
   }
 
   /* Ajusta el logo para móvil */
   #logo-img img {
     width: 100px;
+    height: auto;
   }
 
   /* Reduce el tamaño del título en móvil */
-  h1 {
+  #main-title {
     font-size: 2.2em;
     margin: 15px 0;
   }
 
   /* Ajusta el párrafo para móvil */
-  p {
+  #intro-text {
     border-top: 4px solid #ffffff;
     border-left: none;
     font-size: 0.9em;
@@ -167,18 +182,23 @@ a {
 
   /* Ajusta los botones para móvil */
   #buttons-container {
-    flex-direction: column;
+    display: flex;
+    flex-direction: column; /* apila los botones */
     width: 100%;
     gap: 10px;
+    margin-top: 15px;
   }
+
+  /* Hover específico para el botón de eventos */
   #events-btn:hover {
-    background-color: #249e94;
+    background-color: #2ad449;
     border: none;
-    transform: translateY(0);
+    transform: none; /* evita movimiento en móvil */
   }
 
   /* Hace que los botones ocupen todo el ancho en móvil */
-  a {
+  #buttons-container a,
+  #buttons-container button {
     padding: 12px 20px;
     width: 100%;
     text-align: center;

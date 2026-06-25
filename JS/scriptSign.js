@@ -259,3 +259,13 @@ function mostrarMensajeGlobal(mensaje, tipo) {
     }
   }
 }
+
+// Selecciona los botones dentro del contenedor
+const buttons = document.querySelectorAll("#buttons-container button");
+const buttonsContainer = document.getElementById("buttons-container");
+
+buttons.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    buttonsContainer.classList.add("move-down");
+  });
+});
