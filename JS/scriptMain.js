@@ -145,29 +145,45 @@ function crearEventoDiv(evento) {
   }
 
   // ── Lógica del clic en el botón de registro ──
-  boton.addEventListener("click", () => {
-    const usuarioActivo = JSON.parse(sessionStorage.getItem("usuarioActivo"));
+boton.addEventListener("click", () => {
+  const usuarioActivo = JSON.parse(sessionStorage.getItem("usuarioActivo"));
 
-    // Sin sesión → alerta de error y detener
-    if (!usuarioActivo) {
-      Swal.fire({
-        icon: "error",
-        title: "Sesión no iniciada",
-        text: "Debes registrarte o crear una cuenta!",
-      });
-      return;
-    }
+  if (!usuarioActivo) {
+    Swal.fire({
+      icon: "error",
+      title: "Sesión no iniciada",
+      text: "Debes registrarte o crear una cuenta!",
+    });
+    return;
+  }
 
-    // Con sesión → verificar cupos
-    if (evento.disponibles > 0) {
+  if (evento.disponibles > 0) {
+    Swal.fire({
+      title: "¿Estás seguro?",
+      text: `¿Deseas Inscribirte en "${evento.nombre}"?`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#2e7d32",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Inscribirse",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (!result.isConfirmed) {
+        Swal.fire({
+          icon: "info",
+          title: "Acción cancelada",
+          text: `Tu inscripción en "${evento.nombre}" sigue activa.`,
+        });
+        return;
+      }
+
       evento.disponibles--;
 
-      // Si se agotaron, marcar como lleno en el DOM
       if (evento.disponibles === 0) {
         evento.activo = false;
         document
           .querySelectorAll(
-            `#btn-${evento.nombre.replace(/\s+/g, "-").toLowerCase()}`,
+            `#btn-${evento.nombre.replace(/\s+/g, "-").toLowerCase()}`
           )
           .forEach((btn) => {
             const et = btn
@@ -180,10 +196,9 @@ function crearEventoDiv(evento) {
           });
       }
 
-      // Actualizar cupos en el DOM
       document
         .querySelectorAll(
-          `#btn-${evento.nombre.replace(/\s+/g, "-").toLowerCase()}`,
+          `#btn-${evento.nombre.replace(/\s+/g, "-").toLowerCase()}`
         )
         .forEach((btn) => {
           const cupoP = btn
@@ -193,16 +208,13 @@ function crearEventoDiv(evento) {
             cupoP.textContent = `Cupos disponibles: ${evento.disponibles}`;
         });
 
-      // Persistir cupos en localStorage
       let cupos = JSON.parse(localStorage.getItem("cuposEventos")) || {};
       cupos[evento.nombre] = evento.disponibles;
       localStorage.setItem("cuposEventos", JSON.stringify(cupos));
 
-      // Registrar y bloquear botón PRIMERO
       registrarUsuarioEnEvento(evento, boton);
       bloquearEventosRegistrados();
 
-      // LUEGO mostrar el Swal de éxito
       Swal.fire({
         position: "center",
         icon: "success",
@@ -210,22 +222,21 @@ function crearEventoDiv(evento) {
         showConfirmButton: false,
         timer: 1500,
       });
-    } else {
-      // Sin cupos
-      Swal.fire({
-        icon: "warning",
-        title: "Sin cupos",
-        text: "No quedan cupos disponibles para este evento.",
-      });
-    }
-  });
+    });
+  } else {
+    Swal.fire({
+      icon: "warning",
+      title: "Sin cupos",
+      text: "No quedan cupos disponibles para este evento.",
+    });
+  }
+});
 
-  contenido.appendChild(boton);
-  div.appendChild(contenido);
+contenido.appendChild(boton);
+div.appendChild(contenido);
 
-  return div;
+return div;
 }
-
 // =============================================================
 // 4. inicializar
 // Función principal que se ejecuta al cargar la página.
@@ -584,3 +595,4 @@ function actualizarNavUsuario() {
 inicializar();
 inicializarAutocomplete();
 actualizarNavUsuario();
+
