@@ -31,9 +31,8 @@ body {
   height: 105%;
   width: 111%;
   display: flex;
-  align-items: center;
+  align-items: normal;
   transform: scale(0.83);
-  transform-origin: top left;
 }
 
 /* ===== CONTENEDOR PRINCIPAL ===== */
@@ -150,7 +149,7 @@ a {
   #hero {
     padding: 2rem 1.5rem;
     margin-left: auto;
-    margin-right: auto;
+    margin-right: 10%;
     max-width: 100%;
     width: 100%;
     display: flex; /* asegura flexbox */

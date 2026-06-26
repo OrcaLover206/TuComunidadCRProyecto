@@ -1,4 +1,19 @@
-// campos del forms agrupados en una sola zona para reutilizarlos
+// =============================================================
+// scriptPerfil.js — Lógica del formulario de perfil
+// =============================================================
+// Funciones incluidas:
+//   1. cargarDatosPerfil     → Carga los datos del usuario en el formulario
+//   2. deshabilitarCampos    → Bloquea los inputs y los pone en gris
+//   3. habilitarCampos       → Desbloquea los inputs y restaura el color
+//   4. Validaciones en tiempo real (nombre, teléfono, email)
+//   5. Botón editar          → Habilita los campos para editar
+//   6. Guardar cambios       → Valida y guarda en sessionStorage y localStorage
+//   7. toggleMenu            → Abre/cierra el menú de cuenta o invitado
+//   8. confirmLogout         → Confirma y ejecuta el cierre de sesión con Swal
+//   9. actualizarNavUsuario  → Muestra el nombre del usuario en el nav
+// =============================================================
+
+// ── Referencias a los campos del formulario ──
 const Id = document.getElementById("Id");
 const nombre = document.getElementById("nombre");
 const email = document.getElementById("email");
@@ -9,12 +24,24 @@ const nombreError = document.getElementById("nombreError");
 const telefonoError = document.getElementById("telefonoError");
 const emailError = document.getElementById("emailError");
 
-// =================== CARGAR DATOS DEL PERFIL ===================
+// =============================================================
+// 1. cargarDatosPerfil
+// Lee el usuarioActivo de sessionStorage y rellena el formulario.
+// Si no hay sesión activa, muestra Swal y redirige al login.
+// =============================================================
 function cargarDatosPerfil() {
   const usuarioActivo = JSON.parse(sessionStorage.getItem("usuarioActivo"));
+
   if (!usuarioActivo) {
-    alert("No se encontro una sesion activa, redirigiendo a login");
-    window.location.href = "./Login.html";
+    Swal.fire({
+      icon: "warning",
+      title: "Sin sesión activa",
+      text: "No se encontró una sesión activa, serás redirigido al login.",
+      timer: 2000,
+      showConfirmButton: false,
+    }).then(() => {
+      window.location.href = "./Login.html";
+    });
     return;
   }
 
@@ -23,88 +50,136 @@ function cargarDatosPerfil() {
   email.value = usuarioActivo.email || usuarioActivo.Correo || "";
   telefono.value = usuarioActivo.telefono || usuarioActivo.Telefono || "";
 
-  // Campos bloqueados por defecto
+  // Campos bloqueados y en gris por defecto
   deshabilitarCampos();
 }
 
+// =============================================================
+// 2. deshabilitarCampos
+// Bloquea los inputs editables y aplica estilo gris para indicar
+// que no son editables. El campo ID siempre permanece bloqueado.
+// =============================================================
 function deshabilitarCampos() {
-  nombre.disabled = true;
-  email.disabled = true;
-  telefono.disabled = true;
-  Id.disabled = true; // siempre bloqueado
+  [nombre, email, telefono].forEach((campo) => {
+    campo.disabled = true;
+    campo.style.color = "#9e9e9e";
+    campo.style.backgroundColor = "#f5f5f5";
+    campo.style.cursor = "not-allowed";
+  });
+  Id.disabled = true;
+  Id.style.color = "#9e9e9e";
+  Id.style.backgroundColor = "#f5f5f5";
+  Id.style.cursor = "not-allowed";
 }
 
+// =============================================================
+// 3. habilitarCampos
+// Desbloquea los inputs editables y restaura el estilo normal
+// para indicar que el usuario puede modificarlos.
+// =============================================================
 function habilitarCampos() {
-  nombre.disabled = false;
-  email.disabled = false;
-  telefono.disabled = false;
+  [nombre, email, telefono].forEach((campo) => {
+    campo.disabled = false;
+    campo.style.color = "";
+    campo.style.backgroundColor = "";
+    campo.style.cursor = "text";
+  });
 }
 
-// =================== VALIDACIONES EN TIEMPO REAL ===================
+// =============================================================
+// Inicialización al cargar el DOM
+// =============================================================
 document.addEventListener("DOMContentLoaded", () => {
   cargarDatosPerfil();
+  actualizarNavUsuario();
 
+  // ── Validación en tiempo real: Nombre ──
   nombre.addEventListener("input", () => {
-    const val = nombre.value.trim();
-    const err = nombreError;
-    if (val.length < 3){
-      err.textContent = "digite un nombre valido"
+    if (nombre.value.trim().length < 3) {
+      nombreError.textContent =
+        "Digite un nombre válido (mínimo 3 caracteres).";
+    } else {
+      nombreError.textContent = "";
     }
   });
 
+  // ── Validación en tiempo real: Teléfono ──
   telefono.addEventListener("input", () => {
     const val = telefono.value.trim();
-    const err = telefonoError;
-    if (val === "") err.textContent = "El teléfono es obligatorio.";
+    if (val === "") telefonoError.textContent = "El teléfono es obligatorio.";
     else if (!/^\d{8}$/.test(val))
-      err.textContent = "Debe tener exactamente 8 dígitos.";
-    else err.textContent = "";
+      telefonoError.textContent = "Debe tener exactamente 8 dígitos.";
+    else telefonoError.textContent = "";
   });
 
+  // ── Validación en tiempo real: Email ──
   email.addEventListener("input", () => {
     const val = email.value.trim();
-    const err = emailError;
-    if (val === "") err.textContent = "El correo es obligatorio.";
+    if (val === "") emailError.textContent = "El correo es obligatorio.";
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val))
-      err.textContent = "Formato de correo inválido.";
-    else err.textContent = "";
+      emailError.textContent = "Formato de correo inválido.";
+    else emailError.textContent = "";
   });
 
-  // Botón editar
+  // ── Botón Editar: habilita los campos para modificar ──
   btnEditar.addEventListener("click", () => {
     habilitarCampos();
+    Swal.fire({
+      icon: "info",
+      title: "Modo edición",
+      text: "Ya puedes modificar tus datos.",
+      timer: 1500,
+      showConfirmButton: false,
+      position: "top-end",
+    });
   });
 
-  // Guardar cambios
+  // ── Guardar cambios al enviar el formulario ──
   formPerfil.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    // Validar antes de guardar
+    // Validar campos vacíos
     if (
       nombre.value.trim() === "" ||
       email.value.trim() === "" ||
       telefono.value.trim() === ""
     ) {
-      alert("Por favor rellene todos los campos.");
-      return;
-    }
-    if (!/^\d{8}$/.test(telefono.value)) {
-      alert("El teléfono debe tener exactamente 8 dígitos.");
-      return;
-    }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
-      alert("El formato del correo no es válido.");
+      Swal.fire({
+        icon: "error",
+        title: "Campos incompletos",
+        text: "Por favor rellene todos los campos.",
+      });
       return;
     }
 
-    // Actualizar usuarioActivo
+    // Validar teléfono
+    if (!/^\d{8}$/.test(telefono.value)) {
+      Swal.fire({
+        icon: "error",
+        title: "Teléfono inválido",
+        text: "El teléfono debe tener exactamente 8 dígitos.",
+      });
+      return;
+    }
+
+    // Validar email
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
+      Swal.fire({
+        icon: "error",
+        title: "Correo inválido",
+        text: "El formato del correo no es válido.",
+      });
+      return;
+    }
+
+    // ── Actualizar sessionStorage ──
     let usuarioActivo = JSON.parse(sessionStorage.getItem("usuarioActivo"));
-    usuarioActivo.nombre = nombre.value;
-    usuarioActivo.email = email.value;
-    usuarioActivo.telefono = telefono.value;
+    usuarioActivo.nombre = nombre.value.trim();
+    usuarioActivo.email = email.value.trim();
+    usuarioActivo.telefono = telefono.value.trim();
     sessionStorage.setItem("usuarioActivo", JSON.stringify(usuarioActivo));
 
-    // Actualizar en usuariosRegistrados
+    // ── Sincronizar con localStorage ──
     let usuarios =
       JSON.parse(localStorage.getItem("usuariosRegistrados")) || [];
     usuarios = usuarios.map((u) =>
@@ -112,34 +187,82 @@ document.addEventListener("DOMContentLoaded", () => {
     );
     localStorage.setItem("usuariosRegistrados", JSON.stringify(usuarios));
 
-    alert("Perfil actualizado correctamente.");
+    // ── Confirmar éxito y bloquear campos nuevamente ──
+    Swal.fire({
+      icon: "success",
+      title: "Perfil actualizado",
+      text: "Tus datos han sido guardados correctamente.",
+      timer: 2000,
+      showConfirmButton: false,
+    });
+
     deshabilitarCampos();
+    actualizarNavUsuario();
   });
 });
 
-// =================== MENÚ Y LOGOUT ===================
-// Alterna la visibilidad del menú. Solo muestra la opción de cerrar sesión.
+// =============================================================
+// 7. toggleMenu
+// Alterna la visibilidad del menú desplegable del nav.
+// Muestra #submenu si hay sesión activa, o #menuSinCuenta si no.
+// =============================================================
 function toggleMenu() {
-  const menuWithoutProfile = document.getElementById("menuSinCuenta");
   const usuarioActivo = JSON.parse(sessionStorage.getItem("usuarioActivo"));
   if (!usuarioActivo) {
-    menuWithoutProfile.style.display =
-      menuWithoutProfile.style.display === "none" ? "block" : "none";
+    const menu = document.getElementById("menuSinCuenta");
+    menu.style.display = menu.style.display === "none" ? "block" : "none";
   } else {
     const submenu = document.getElementById("submenu");
     submenu.style.display = submenu.style.display === "none" ? "block" : "none";
   }
 }
 
-// =================== FUNCIÓN PARA LOGOUT ===================
-// Muestra confirmación al cerrar sesión y redirige si se acepta.
+// =============================================================
+// 8. confirmLogout
+// Muestra confirmación Swal antes de cerrar sesión.
+// Si confirma: elimina "usuarioActivo" de sessionStorage y
+// redirige al index. Si cancela, muestra mensaje informativo.
+// =============================================================
 function confirmLogout() {
-  const seguro = confirm("¿Estás seguro de cerrar sesión?");
-  if (seguro) {
-    sessionStorage.removeItem("usuarioActivo");
-    alert("Sesión cerrada correctamente");
-    window.location.href = "../index.html";
-  } else {
-    alert("Acción cancelada");
+  Swal.fire({
+    title: "¿Estás seguro?",
+    text: "No podrás revertir esta acción",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#2e7d32",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Sí, cerrar sesión",
+    cancelButtonText: "Cancelar",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      sessionStorage.removeItem("usuarioActivo");
+      Swal.fire({
+        title: "Sesión cerrada",
+        text: "Has salido correctamente.",
+        icon: "success",
+      }).then(() => {
+        window.location.href = "../index.html";
+      });
+    } else {
+      Swal.fire({
+        title: "Acción cancelada",
+        text: "Tu sesión sigue activa.",
+        icon: "info",
+      });
+    }
+  });
+}
+
+// =============================================================
+// 9. actualizarNavUsuario
+// Lee el usuarioActivo de sessionStorage y reemplaza el texto
+// del botón ".nav-cuenta" con el nombre de usuario.
+// =============================================================
+function actualizarNavUsuario() {
+  const usuarioActivo = JSON.parse(sessionStorage.getItem("usuarioActivo"));
+  const btnCuenta = document.querySelector(".nav-cuenta");
+  if (usuarioActivo && btnCuenta) {
+    btnCuenta.textContent =
+      usuarioActivo.username || usuarioActivo.nombre || "Mi cuenta";
   }
 }

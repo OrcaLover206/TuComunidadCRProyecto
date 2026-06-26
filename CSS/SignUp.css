@@ -28,6 +28,7 @@ body {
   display: flex;
   align-items: center;
   overflow-x: hidden; /*evita scroll horizontal */
+  transform: scale(0.89);
 }
 
 /* ===== CONTENEDOR PRINCIPAL ===== */

@@ -269,3 +269,12 @@ buttons.forEach((btn) => {
     buttonsContainer.classList.add("move-down");
   });
 });
+
+function actualizarNavUsuario() {
+  const usuarioActivo = JSON.parse(sessionStorage.getItem("usuarioActivo"));
+  const btnCuenta = document.querySelector(".nav-cuenta");
+  if (usuarioActivo && btnCuenta) {
+    btnCuenta.textContent =
+      usuarioActivo.username || usuarioActivo.nombre || "Mi cuenta";
+  }
+}

@@ -20,10 +20,17 @@ html {
     cover,
     115% 145%;
   background-attachment: fixed;
-  background-position:
-    center,
+  background-position: center,
     calc(50% + 20px) center;
   background-repeat: no-repeat;
+}
+
+#nav-title  a {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin: 0;
+  text-decoration: none;
+  color: #ffffff;
 }
 
 /* ===== CUERPO DE LA PÁGINA ===== */

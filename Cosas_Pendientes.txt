@@ -1,6 +1,0 @@
-
-
-1.Barra de busqueda de eventos que se autocomplete
-2.Css de Main
-3.Index texto dinamico 
-4.Pagina mis eventos registrados
