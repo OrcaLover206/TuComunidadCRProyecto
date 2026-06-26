@@ -47,7 +47,9 @@ document.addEventListener("DOMContentLoaded", () => {
   nombre.addEventListener("input", () => {
     const val = nombre.value.trim();
     const err = nombreError;
-    err.textContent = val === "" ? "El nombre es obligatorio." : "";
+    if (val.length < 3){
+      err.textContent = "digite un nombre valido"
+    }
   });
 
   telefono.addEventListener("input", () => {
@@ -80,26 +82,26 @@ document.addEventListener("DOMContentLoaded", () => {
     // Validar antes de guardar
     if (
       nombre.value.trim() === "" ||
-      email.value.trim === "" ||
+      email.value.trim() === "" ||
       telefono.value.trim() === ""
     ) {
       alert("Por favor rellene todos los campos.");
       return;
     }
-    if (!/^\d{8}$/.test(telefono)) {
+    if (!/^\d{8}$/.test(telefono.value)) {
       alert("El teléfono debe tener exactamente 8 dígitos.");
       return;
     }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
       alert("El formato del correo no es válido.");
       return;
     }
 
     // Actualizar usuarioActivo
     let usuarioActivo = JSON.parse(sessionStorage.getItem("usuarioActivo"));
-    usuarioActivo.nombre = nombre;
-    usuarioActivo.email = email;
-    usuarioActivo.telefono = telefono;
+    usuarioActivo.nombre = nombre.value;
+    usuarioActivo.email = email.value;
+    usuarioActivo.telefono = telefono.value;
     sessionStorage.setItem("usuarioActivo", JSON.stringify(usuarioActivo));
 
     // Actualizar en usuariosRegistrados

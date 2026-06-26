@@ -106,21 +106,13 @@ function crearEventoDiv(evento) {
       return;
     }
 
-    // const yaRegistrado = usuarioActivo.eventos.some(
-    //   (e) => e.nombre === evento.nombre,
-    // );
-    // if (yaRegistrado) {
-    //   alert("Ya estás registrado en este evento.");
-    //   return;
-    // }
-
     const respuesta = window.confirm(
       `¿Estás seguro de querer registrarse en el evento ${evento.nombre}?`,
     );
     if (respuesta === true) {
       if (evento.disponibles > 0) {
-        registrarUsuarioEnEvento(evento, boton);
         evento.disponibles--;
+        registrarUsuarioEnEvento(evento, boton);
         // Actualizar cupos en todos los divs del mismo evento
         document
           .querySelectorAll(
@@ -412,12 +404,6 @@ document.addEventListener("click", (e) => {
   }
 });
 
-// // =================== INICIALIZACIÓN ===================
-// let usuarios = JSON.parse(localStorage.getItem("usuariosRegistrados")) || [];
-// usuarios = usuarios.map((u) => {
-//   if (!u.eventos) u.eventos = [];
-//   return u;
-// });
 
 inicializar();
 inicializarAutocomplete();
