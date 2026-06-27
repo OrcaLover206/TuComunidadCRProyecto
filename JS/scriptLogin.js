@@ -100,8 +100,15 @@ document.addEventListener("DOMContentLoaded", () => {
     // Si pasa todos los filtros, inicia sesión con éxito
     mostrarMensajeGlobal("Inicio de sesión exitoso. Redirigiendo...", "exito");
 
+
+    // Buscar si existe una versión más actualizada del usuario en localStorage (con sus eventos)
+    const usuariosLS = JSON.parse(localStorage.getItem("usuariosRegistrados")) || [];
+    const usuarioConEventos = usuariosLS.find(
+      (u) => u.username.toLowerCase() === usuarioEncontrado.username.toLowerCase()
+    ) || usuarioEncontrado;
+
     // Guardar en sessionStorage cuál es el usuario que está activo actualmente en la sesión
-    sessionStorage.setItem("usuarioActivo", JSON.stringify(usuarioEncontrado));
+    sessionStorage.setItem("usuarioActivo", JSON.stringify(usuarioConEventos));
 
     // Limpiar estilos de error si los había
     UserInput.classList.remove("input-error");

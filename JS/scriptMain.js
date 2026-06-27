@@ -465,6 +465,18 @@ function registrarUsuarioEnEvento(evento, boton) {
 
   // Reflejar el cambio en el array persistente de usuarios
   let usuarios = JSON.parse(localStorage.getItem("usuariosRegistrados")) || [];
+  const existeUsuario = usuarios.some(u => u.username === usuarioActivo.username);
+
+  if (existeUsuario) {
+    // Si existe, lo mapeamos y actualizamos sus datos con el nuevo evento
+    usuarios = usuarios.map((u) =>
+      u.username === usuarioActivo.username ? usuarioActivo : u
+    );
+  } else {
+    //lo agregamos al array por si no estaba ya previamente cargado en localstorage
+    usuarios.push(usuarioActivo);
+  }
+
   usuarios = usuarios.map((u) =>
     u.username === usuarioActivo.username ? usuarioActivo : u,
   );
@@ -541,8 +553,19 @@ async function inicializarAutocomplete() {
           input.value = ev.nombre;
           sugerenciasDiv.style.display = "none";
           if (renderEventosComunidad) renderEventosComunidad();
+          setTimeout(() => {
+            const comunidadContainer = document.getElementById("eventos-comunidad");
+            if (comunidadContainer) {
+              // Intento 1: Scroll nativo estándar
+              comunidadContainer.scrollIntoView({ 
+                behavior: "smooth", 
+                block: "center" 
+              });
+            }
+          }, 50)
         });
         sugerenciasDiv.appendChild(opcion);
+        const eventosComunidadContainer = document.getElementById("eventos-comunidad")
       });
       sugerenciasDiv.style.display = filtrados.length ? "block" : "none";
     } else {

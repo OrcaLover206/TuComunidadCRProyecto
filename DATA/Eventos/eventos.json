@@ -50,8 +50,8 @@
       ],
       "municipalidad": "Cartago",
       "provincia": "Cartago",
-      "disponibles": 0,
-      "activo": false,
+      "disponibles": 1,
+      "activo": true,
       "imagen": "../IMAGES/Eventos/carrera-pet-friendly.png"
     },
     {
