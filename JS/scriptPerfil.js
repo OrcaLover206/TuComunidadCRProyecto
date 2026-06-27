@@ -20,6 +20,7 @@ const email = document.getElementById("email");
 const telefono = document.getElementById("telefono");
 const formPerfil = document.getElementById("formPerfil");
 const btnEditar = document.getElementById("btnEditar");
+const btnLimpiar = document.getElementById("btnLimpiar")
 const nombreError = document.getElementById("nombreError");
 const telefonoError = document.getElementById("telefonoError");
 const emailError = document.getElementById("emailError");
@@ -133,6 +134,39 @@ document.addEventListener("DOMContentLoaded", () => {
       position: "top-end",
     });
   });
+
+  btnLimpiar.addEventListener("click", ()=>{
+  Swal.fire({
+    title: "¿Estás seguro?",
+    text: `Deseas limpiar tus datos"?`,
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#2e7d32",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Confirmar",
+    cancelButtonText: "Cancelar",
+  }).then((result) => {
+    // Usuario canceló
+    if (!result.isConfirmed) {
+      Swal.fire({
+        icon: "info",
+        title: "Acción cancelada",
+        text: `Tus datos no fueron limpiados.`,
+      });
+      return;
+    }else{
+      limpiarFormulario()
+      Swal.fire({
+      icon: "success",
+      title: "Datos limpiados",
+      text: "Clickea editar para agregar tus nuevos datos o salte de la pagina sin guardar para restaurarlos",
+      timer: 3100,
+      showConfirmButton: false
+    });
+    }
+  })
+
+})
 
   // ── Guardar cambios al enviar el formulario ──
   formPerfil.addEventListener("submit", (e) => {
@@ -265,4 +299,13 @@ function actualizarNavUsuario() {
     btnCuenta.textContent =
       usuarioActivo.username || usuarioActivo.nombre || "Mi cuenta";
   }
+}
+
+function limpiarFormulario(){
+  nombre.value = ""
+  email.value = ""
+  telefono.value = ""
+  nombreError.textContent = ""
+  emailError.textContent = ""
+  telefonoError.textContent = ""
 }

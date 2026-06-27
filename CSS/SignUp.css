@@ -191,7 +191,7 @@ button {
   white-space: nowrap;
 }
 
-/* ===== BOTÓN "INICIAR" ===== */
+/* ===== BOTÓN "REGISTRARSE" ===== */
 #login-btn {
   background-color: white;
   color: #333;
@@ -203,7 +203,7 @@ button {
   transform: translateY(-2px);
 }
 
-/* ===== BOTÓN "CREAR CUENTA" ===== */
+/* ===== BOTÓN "IR AL INICIO DE SESIÓN" ===== */
 #register-btn {
   background-color: transparent;
   color: white;
@@ -215,7 +215,6 @@ button {
   background-color: rgba(255, 255, 255, 0.1);
   transform: translateY(-2px);
 }
-
 /* ===== SECCIÓN DE IMAGEN ===== */
 #login-image-section {
   flex: 1;
